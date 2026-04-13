@@ -132,7 +132,7 @@
     }
     @keyframes floatUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     .login-logo { font-family: var(--font-heading); font-size: 2.2rem; margin-bottom: 30px; color: var(--gold-premium); font-weight: 800; letter-spacing: -1px;}
-    .login-logo i { background: linear-gradient(135deg, var(--gold-premium), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .custom-logo-text i { background: linear-gradient(135deg, var(--gold-premium), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     
     /* --- Modern Navigation --- */
     .modern-nav {
@@ -145,8 +145,8 @@
       max-width: 1400px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;
     }
     .nav-logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 10px; cursor: pointer;}
-    .nav-logo i { background: linear-gradient(135deg, var(--gold-premium), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .nav-logo span { color: var(--gold-premium); font-weight: 400;}
+    .custom-logo-text i { background: linear-gradient(135deg, var(--gold-premium), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .custom-logo-text span.brand-gold { color: var(--gold-premium); font-weight: 400;}
     .nav-menu { display: flex; gap: 8px; flex: 1; justify-content: center; }
     .nav-actions { display: flex; gap: 15px; align-items: center; }
     
@@ -171,14 +171,14 @@
 
     /* --- Smart Greeting --- */
     .smart-greeting {
-      text-align: center; margin-bottom: 30px; animation: slideUp 0.6s ease forwards;
+      text-align: center; margin-bottom: 30px; margin-top: 35px; animation: slideUp 0.6s ease forwards;
     }
     .smart-greeting h1 { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-main); margin-bottom: 5px; }
     .smart-greeting p { color: var(--text-muted); font-size: 1.1rem; }
 
     /* --- Main App Layout --- */
     #appContainer { display: none; }
-    .main-content { max-width: 1400px; margin: 100px auto 60px; padding: 0 20px; flex: 1; width: 100%; }
+    .main-content { max-width: 1400px; margin: 120px auto 60px; padding: 0 20px; flex: 1; width: 100%; }
     .tab-content { display: none; opacity: 0; transform: translateY(15px); transition: all 0.4s ease; }
     .tab-content.active { display: block; opacity: 1; transform: translateY(0); animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     
@@ -204,6 +204,14 @@
       border: 1px solid var(--glass-border); border-radius: 14px; 
       font-family: inherit; font-size: 1.1rem; color: var(--text-main); transition: var(--transition-fast);
     }
+    
+    /* Date Icon Invert in Dark Mode */
+    html[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      opacity: 0.7;
+      cursor: pointer;
+    }
+
     .form-control:focus { outline: none; border-color: var(--gold-premium); background: var(--bg-base); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1); }
     .form-control::placeholder { color: transparent; }
     .form-label { position: absolute; top: 18px; color: var(--text-muted); transition: var(--transition-fast); pointer-events: none; font-size: 1rem; font-weight: 500;}
@@ -319,7 +327,7 @@
     .user-info { display: flex; align-items: center; gap: 15px; }
     .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--bg-surface); }
 
-    /* --- Smart Toasts --- */
+    /* --- Smart Toasts (with Progress) --- */
     .toast-container { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column-reverse; gap: 10px; pointer-events: none;}
     .toast {
       background: var(--bg-surface); border: 1px solid var(--glass-border); color: var(--text-main); padding: 16px 24px;
@@ -359,7 +367,7 @@
       .nav-link span.tab-text { display: block; white-space: nowrap; font-size: 0.7rem;}
       .nav-link.active { transform: translateY(-5px); box-shadow: 0 5px 15px var(--gold-glow-dark); }
       
-      .main-content { margin-top: 80px; margin-bottom: 100px; padding: 0 15px; }
+      .main-content { margin-top: 100px; margin-bottom: 100px; padding: 0 15px; }
       .smart-greeting h1 { font-size: 1.8rem; }
       .charts-container { grid-template-columns: 1fr; }
       .chart-wrapper { height: 380px; padding: 15px; }
@@ -399,7 +407,10 @@
 
   <div id="loginScreen">
     <div class="login-box">
-      <div class="login-logo"><i class="fa-solid fa-gem"></i> IronPeak <span>Capital</span></div>
+      <div class="login-logo">
+        <img class="custom-logo-img" style="display:none; max-height: 80px; margin: 0 auto 20px; border-radius: 12px;">
+        <div class="custom-logo-text"><i class="fa-solid fa-gem"></i> IronPeak <span class="brand-gold">Capital</span></div>
+      </div>
       <h3 id="loginTitleText" style="margin-bottom: 25px; color: var(--text-muted); font-weight: 500;">تسجيل الدخول للنظام</h3>
       <form id="loginForm">
         <div class="form-group">
@@ -418,8 +429,12 @@
   <div id="appContainer">
     <nav class="modern-nav">
       <div class="nav-container">
+        
         <div class="nav-logo" onclick="switchTab('analytics')">
-          <i class="fa-solid fa-gem"></i> <span data-i18n="brand1">IronPeak</span>&nbsp;<span style="color:var(--text-main)" data-i18n="brand2">Capital</span>
+          <img class="custom-logo-img" style="display:none; max-height: 40px; border-radius: 6px;">
+          <span class="custom-logo-text" style="display: inline-flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-gem"></i> <span data-i18n="brand1">IronPeak</span>&nbsp;<span class="brand-gold" data-i18n="brand2">Capital</span>
+          </span>
         </div>
         
         <div class="nav-actions">
@@ -517,7 +532,6 @@
         <div class="premium-card" style="padding: 20px;">
           <div class="market-tabs">
             <button class="market-tab active" onclick="loadMarket('OANDA:XAUUSD', this)">الذهب (XAU/USD)</button>
-            <button class="market-tab" onclick="loadMarket('SP:SPX', this)">S&P 500</button>
             <button class="market-tab" onclick="loadMarket('BINANCE:BTCUSDT', this)">Bitcoin (BTC)</button>
             <button class="market-tab" onclick="loadMarket('OANDA:EURUSD', this)">EUR/USD</button>
             <button class="market-tab" onclick="loadMarket('NASDAQ:AAPL', this)">Apple Inc.</button>
@@ -603,6 +617,16 @@
   </div>
 
   <script>
+    /* -----------------------------------------
+       Logo Configuration (إعدادات اللوجو)
+       -----------------------------------------
+       - ضع رابط اللوجو بين علامتي التنصيص بالأسفل لعرض الصورة بدلاً من النص
+       - مثال: const CUSTOM_LOGO_URL = "https://example.com/my-logo.png";
+       - اتركه فارغاً لعرض النص التلقائي (IronPeak Capital)
+    */
+    const CUSTOM_LOGO_URL = ""; 
+
+
     /* --- State Management & Configuration --- */
     const defaultPartners = {
       omar: { id: 'omar', pass: '2026', role: 'partner', nameAr: 'عمر', nameEn: 'Omar', color: '#10b981' },
@@ -661,6 +685,17 @@
 
     /* --- Initialization --- */
     window.addEventListener('load', () => {
+      // Initialize Logo
+      if(CUSTOM_LOGO_URL && CUSTOM_LOGO_URL.trim() !== "") {
+        document.querySelectorAll('.custom-logo-img').forEach(img => { 
+          img.src = CUSTOM_LOGO_URL; 
+          img.style.display = 'block'; 
+        });
+        document.querySelectorAll('.custom-logo-text').forEach(txt => { 
+          txt.style.display = 'none'; 
+        });
+      }
+
       document.documentElement.setAttribute('data-theme', currentTheme);
       updateThemeIcon();
       applyLanguage(ironPeakLang);
@@ -1291,11 +1326,44 @@
                 <div style="font-size:0.85rem; color:var(--text-muted); margin-top:2px;">Role: ${p.role.toUpperCase()}</div>
               </div>
             </div>
-            <div>
-               </div>
+            <div class="row-actions">
+               <button class="btn-icon-small delete" onclick="adminDeletePartner('${p.id}')" title="حذف الشريك"><i class="fa-solid fa-trash-can"></i></button>
+            </div>
           </div>
         `;
       });
+    }
+
+    // New Function: Admin Delete Partner
+    function adminDeletePartner(partnerId) {
+      const pName = ironPeakLang === 'ar' ? ironPeakPartners[partnerId].nameAr : ironPeakPartners[partnerId].nameEn;
+      const confirmDelete = confirm(`تحذير: هل أنت متأكد من حذف الشريك (${pName}) نهائياً من النظام؟`);
+      
+      if(confirmDelete) {
+        // Ask about historical data
+        const deleteHistory = confirm(`هل ترغب أيضاً بمسح كافة البيانات والأرباح السابقة المرتبطة بالشريك (${pName})؟\n\n- اختر (OK / موافق): لـ مسح جميع أرباحه وإعادة حساب الصافي الكلي.\n- اختر (Cancel / إلغاء): لـ حذف حسابه فقط والاحتفاظ بأرباحه القديمة كجزء من السجل.`);
+        
+        if (deleteHistory) {
+          // Remove partner's profit from all history and recalculate Net
+          ironPeakData.forEach(item => {
+            if(item.profits && item.profits[partnerId] !== undefined) {
+               item.netProfit -= item.profits[partnerId];
+               delete item.profits[partnerId];
+            }
+          });
+          localStorage.setItem('ironPeakData', JSON.stringify(ironPeakData));
+          filteredData = [...ironPeakData];
+        }
+
+        // Delete Partner
+        delete ironPeakPartners[partnerId];
+        localStorage.setItem('ironPeakPartners', JSON.stringify(ironPeakPartners));
+        
+        showToast("تم حذف الشريك بنجاح", "success");
+        renderDynamicUI(); // Re-render inputs and table headers
+        if(monthlyChartInstance) updateAnalytics(); // Re-render charts
+        updateTable(); // Re-render table data
+      }
     }
 
     /* --- Export & Clear --- */
