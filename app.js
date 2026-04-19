@@ -578,13 +578,35 @@ function updateTelegramLink() {
 }
 document.getElementById('addVideoForm').addEventListener('submit', async (e) => {
   e.preventDefault();
+  
+  let rawUrl = document.getElementById('videoEmbedCode').value.trim();
+  let finalUrl = rawUrl;
+
+  // تحويل روابط يوتيوب العادية إلى روابط Embed تلقائياً
+  if (rawUrl.includes('youtube.com/watch?v=')) {
+      finalUrl = rawUrl.replace('watch?v=', 'embed/');
+      // إزالة أي باراميترز زيادة مثل &t=10s
+      finalUrl = finalUrl.split('&')[0];
+  } else if (rawUrl.includes('youtu.be/')) {
+      finalUrl = rawUrl.replace('youtu.be/', 'www.youtube.com/embed/');
+      finalUrl = finalUrl.split('?')[0];
+  }
+
+  if (!platformSettings.youtubeVideos) platformSettings.youtubeVideos = [];
+
   platformSettings.youtubeVideos.push({
     title: document.getElementById('videoTitle').value,
-    embedCode: document.getElementById('videoEmbedCode').value
+    embedCode: finalUrl
   });
-  await setDoc(doc(db, 'settings', 'platform'), platformSettings);
-  renderAdminVideoList();
-  e.target.reset();
+  
+  try {
+    await setDoc(doc(db, 'settings', 'platform'), platformSettings);
+    renderAdminVideoList();
+    e.target.reset();
+    showToast('تمت إضافة الفيديو بنجاح');
+  } catch (err) {
+    showToast('خطأ في الاتصال بقاعدة البيانات', 'error');
+  }
 });
 function renderAdminVideoList() {
   const list = document.getElementById('adminVideoList');
