@@ -12,5 +12,19 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+// تمرير كل الوظائف للـ window عشان app.js يشوفهم
 window.firebaseDB = db;
+window.doc = doc;
+window.setDoc = setDoc;
+window.getDoc = getDoc;
+window.getDocs = getDocs;
+window.addDoc = addDoc;
+window.updateDoc = updateDoc;
+window.deleteDoc = deleteDoc;
+window.collection = collection;
+window.query = query;
+window.orderBy = orderBy;
 window.firebaseTimestamp = Timestamp;
+
+console.log("Firebase Connected Successfully!");
