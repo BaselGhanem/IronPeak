@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>IronPeak Capital - Premium FinTech</title>
+  <title>GoldenPeak Capital - Premium FinTech</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -12,7 +12,6 @@
     
     /* --- Design System & Theming --- */
     :root {
-      /* Dark Theme (Default) */
       --bg-base-dark: #060a0f;
       --bg-surface-dark: rgba(13, 22, 33, 0.6);
       --glass-border-dark: rgba(255, 255, 255, 0.08);
@@ -22,7 +21,6 @@
       --teal-glow-dark: rgba(0, 166, 147, 0.3);
       --gold-glow-dark: rgba(212, 175, 55, 0.2);
       
-      /* Light Theme */
       --bg-base-light: #f1f5f9;
       --bg-surface-light: rgba(255, 255, 255, 0.7);
       --glass-border-light: rgba(0, 0, 0, 0.08);
@@ -32,7 +30,6 @@
       --teal-glow-light: rgba(0, 166, 147, 0.15);
       --gold-glow-light: rgba(212, 175, 55, 0.15);
 
-      /* Brand Colors */
       --deep-teal: #002b24;
       --primary-teal: #00A693;
       --gold-premium: #D4AF37;
@@ -42,14 +39,12 @@
       --warning: #f59e0b;
       --info: #3b82f6;
       
-      /* Typography & Animation */
       --font-primary: 'Tajawal', 'Almarai', sans-serif;
       --font-heading: 'Almarai', sans-serif;
       --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       --transition-fast: 0.2s ease;
     }
     
-    /* Apply Theme Variables */
     html[data-theme="dark"] {
       --bg-base: var(--bg-base-dark);
       --bg-surface: var(--bg-surface-dark);
@@ -79,142 +74,51 @@
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     
     body {
-      font-family: var(--font-primary);
-      background-color: var(--bg-base);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-      transition: background-color 0.5s ease, color 0.5s ease;
-      line-height: 1.6;
+      font-family: var(--font-primary); background-color: var(--bg-base); color: var(--text-main);
+      min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden;
+      transition: background-color 0.5s ease, color 0.5s ease; line-height: 1.6;
     }
 
-    /* RTL/LTR Alignment Corrections */
+    /* RTL/LTR Alignment */
     html[dir="ltr"] body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    html[dir="ltr"] .form-label, html[dir="ltr"] .stepper-label { right: auto; left: 16px; transform-origin: left top; }
-    html[dir="rtl"] .form-label, html[dir="rtl"] .stepper-label { left: auto; right: 16px; transform-origin: right top; }
-    
+    html[dir="ltr"] .form-label { right: auto; left: 16px; transform-origin: left top; }
+    html[dir="rtl"] .form-label { left: auto; right: 16px; transform-origin: right top; }
     html[dir="ltr"] .form-control:focus ~ .form-label, html[dir="ltr"] .form-control:not(:placeholder-shown) ~ .form-label { right: auto; left: 12px; }
     html[dir="rtl"] .form-control:focus ~ .form-label, html[dir="rtl"] .form-control:not(:placeholder-shown) ~ .form-label { left: auto; right: 12px; }
-    
     html[dir="ltr"] .nav-logo { flex-direction: row; }
     html[dir="ltr"] th, html[dir="ltr"] td { text-align: left; }
     html[dir="rtl"] th, html[dir="rtl"] td { text-align: right; }
-    html[dir="ltr"] td:first-child, html[dir="ltr"] th:first-child { border-radius: 12px 0 0 12px; }
-    html[dir="ltr"] td:last-child, html[dir="ltr"] th:last-child { border-radius: 0 12px 12px 0; }
-    html[dir="rtl"] td:first-child, html[dir="rtl"] th:first-child { border-radius: 0 12px 12px 0; }
-    html[dir="rtl"] td:last-child, html[dir="rtl"] th:last-child { border-radius: 12px 0 0 12px; }
 
     /* Animated Background */
     .background-pattern {
       position: fixed; inset: 0; z-index: -1;
-      background: 
-        radial-gradient(circle at 15% 20%, var(--bg-glow-1) 0%, transparent 40%),
-        radial-gradient(circle at 85% 80%, var(--bg-glow-2) 0%, transparent 40%);
+      background: radial-gradient(circle at 15% 20%, var(--bg-glow-1) 0%, transparent 40%),
+                  radial-gradient(circle at 85% 80%, var(--bg-glow-2) 0%, transparent 40%);
       filter: blur(80px); opacity: 0.8; animation: pulseGlow 15s infinite alternate;
       transition: background 0.5s ease;
     }
+    @keyframes pulseGlow { 0% { transform: scale(1); opacity: 0.6; } 100% { transform: scale(1.15); opacity: 1; } }
 
-    @keyframes pulseGlow {
-      0% { transform: scale(1); opacity: 0.6; }
-      100% { transform: scale(1.15); opacity: 1; }
-    }
-
-    /* --- Authentication --- */
-    #loginScreen {
-      position: fixed; inset: 0; z-index: 9999;
-      background: var(--bg-base);
-      display: flex; justify-content: center; align-items: center;
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .login-box {
-      background: var(--bg-surface); padding: 50px 40px; border-radius: 24px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.2);
-      width: 90%; max-width: 420px; border: 1px solid var(--glass-border);
-      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); text-align: center;
-      transform: translateY(0); animation: floatUp 0.8s ease-out forwards;
-    }
-    @keyframes floatUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-    .login-logo { font-family: var(--font-heading); font-size: 2.4rem; margin-bottom: 30px; color: var(--gold-premium); font-weight: 800; letter-spacing: -1px;}
-    .custom-logo-text i { background: linear-gradient(135deg, var(--gold-premium), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    
-    /* --- Modern Navigation --- */
-    .modern-nav {
-      position: fixed; top: 0; left: 0; width: 100%;
-      background: var(--bg-surface); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid var(--glass-border); z-index: 1000;
-      transition: background 0.5s ease, border-color 0.5s ease;
-    }
-    .nav-container {
-      max-width: 1400px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;
-    }
-    .nav-logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 10px; cursor: pointer;}
-    .custom-logo-text i { background: linear-gradient(135deg, var(--gold-premium), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .custom-logo-text span.brand-gold { color: var(--gold-premium); font-weight: 400;}
-    .nav-menu { display: flex; gap: 8px; flex: 1; justify-content: center; }
-    .nav-actions { display: flex; gap: 15px; align-items: center; }
-    
-    .nav-link {
-      text-decoration: none; color: var(--text-muted); font-weight: 700; font-size: 1.05rem;
-      padding: 10px 18px; border-radius: 12px; transition: all var(--transition-fast);
-      cursor: pointer; border: 1px solid transparent; background: transparent;
-      display: flex; align-items: center; gap: 8px; position: relative; overflow: hidden;
-    }
-    .nav-link:hover { color: var(--text-main); background: var(--glass-highlight); }
-    .nav-link.active { color: var(--gold-premium); background: var(--glass-highlight); border-color: var(--glass-border); font-weight: 800;}
-    /* Ripple Effect */
-    .ripple { position: absolute; border-radius: 50%; transform: scale(0); animation: ripple 0.6s linear; background-color: rgba(255, 255, 255, 0.3); }
-    @keyframes ripple { to { transform: scale(4); opacity: 0; } }
-
-    .icon-btn {
-      background: transparent; border: 1px solid var(--glass-border); color: var(--text-main);
-      padding: 10px; border-radius: 50%; cursor: pointer; transition: var(--transition-fast);
-      display: flex; justify-content: center; align-items: center; width: 42px; height: 42px;
-    }
-    .icon-btn:hover { background: var(--glass-highlight); color: var(--gold-premium); transform: scale(1.05); }
-
-    /* --- Smart Greeting --- */
-    .smart-greeting {
-      text-align: center; margin-bottom: 30px; margin-top: 35px; animation: slideUp 0.6s ease forwards;
-    }
-    .smart-greeting h1 { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-main); margin-bottom: 5px; font-weight: 800;}
-    .smart-greeting p { color: var(--text-muted); font-size: 1.1rem; font-weight: 500;}
-
-    /* --- Main App Layout --- */
-    #appContainer { display: none; }
-    .main-content { max-width: 1400px; margin: 120px auto 60px; padding: 0 20px; flex: 1; width: 100%; }
-    .tab-content { display: none; opacity: 0; transform: translateY(15px); transition: all 0.4s ease; }
-    .tab-content.active { display: block; opacity: 1; transform: translateY(0); animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-    
-    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* --- Universal UI Components --- */
+    /* Universal UI Components */
     .premium-card {
-      background: var(--bg-surface); border-radius: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.1);
+      background: var(--bg-surface); border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
       border: 1px solid var(--glass-border); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-      transition: background 0.5s ease, border-color 0.5s ease;
     }
+    
+    .btn-submit {
+      width: 100%; padding: 18px; background: linear-gradient(135deg, var(--gold-premium), #b8860b); color: #000;
+      border: none; border-radius: 14px; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: var(--transition-fast);
+      box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2); display:flex; align-items:center; justify-content:center; gap:10px;
+    }
+    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.4); }
 
-    /* Forms */
-    .form-container { padding: 40px; max-width: 600px; margin: 0 auto; }
-    .form-header { text-align: center; margin-bottom: 35px; }
-    .form-header h2 { font-family: var(--font-heading); color: var(--text-main); font-size: 1.8rem; margin-bottom: 10px; font-weight: 800;}
-    .form-header p { color: var(--text-muted); font-size: 1rem; font-weight: 500;}
-
-    .form-group { position: relative; margin-bottom: 28px; }
+    .form-group { position: relative; margin-bottom: 25px; }
     .form-control {
       width: 100%; padding: 18px 16px 14px; background: var(--input-bg);
       border: 1px solid var(--glass-border); border-radius: 14px; 
-      font-family: inherit; font-size: 1.15rem; color: var(--text-main); transition: var(--transition-fast); font-weight: 600;
+      font-family: inherit; font-size: 1.15rem; color: var(--text-main); font-weight: 600;
     }
-    
-    /* Date Icon Invert in Dark Mode */
-    html[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1); opacity: 0.7; cursor: pointer;
-    }
-
+    html[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.7; cursor: pointer; }
     .form-control:focus { outline: none; border-color: var(--gold-premium); background: var(--bg-base); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1); }
     .form-control::placeholder { color: transparent; }
     .form-label { position: absolute; top: 18px; color: var(--text-muted); transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); pointer-events: none; font-size: 1.05rem; font-weight: 600;}
@@ -222,251 +126,151 @@
       transform: translateY(-30px) scale(0.85); color: var(--gold-premium); background: var(--bg-surface); padding: 0 10px; border-radius: 6px; border: 1px solid var(--glass-border); font-weight: 700;
     }
 
-    /* --- NEW: Horizontal Stepper with Floating Labels --- */
-    .stepper-wrapper {
-      display: flex; align-items: center; position: relative;
-      background: var(--input-bg); border: 1px solid var(--glass-border); border-radius: 14px; transition: var(--transition-fast);
-    }
-    .stepper-wrapper:focus-within {
-      border-color: var(--gold-premium); background: var(--bg-base); box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
-    }
-    .stepper-btn {
-      background: transparent; border: none; color: var(--gold-premium); font-size: 1.4rem; font-weight: bold;
-      padding: 15px 25px; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center;
-    }
-    .stepper-btn:hover { background: rgba(212, 175, 55, 0.1); }
-    .stepper-btn:active { transform: scale(0.9); }
-    .stepper-input {
-      flex: 1; border: none; background: transparent; text-align: center; font-size: 1.3rem; font-weight: 800;
-      color: var(--text-main); outline: none; padding: 18px 10px 14px; font-family: inherit; -moz-appearance: textfield;
-    }
-    .stepper-input::-webkit-outer-spin-button, .stepper-input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-    .stepper-label {
-      position: absolute; top: -14px; right: 20px; background: var(--bg-surface); padding: 2px 10px;
-      font-size: 0.9rem; font-weight: 700; border-radius: 6px; border: 1px solid var(--glass-border); z-index: 2; transition: 0.3s;
-    }
+    /* Landing Page */
+    #landingPage { display: flex; flex-direction: column; min-height: 100vh; padding-top: 80px; }
+    .hero-section { text-align: center; padding: 40px 20px; max-width: 900px; margin: auto; }
+    .hero-title { font-size: 3rem; font-weight: 800; font-family: var(--font-heading); color: var(--gold-premium); margin-bottom: 15px; }
+    .hero-subtitle { font-size: 1.3rem; color: var(--text-muted); margin-bottom: 30px; }
+    .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 20px; border: 1px solid var(--glass-border); box-shadow: 0 20px 40px rgba(0,0,0,0.3); margin-bottom: 40px; }
+    .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .tip-card { padding: 20px; border-radius: 16px; background: var(--bg-surface); border: 1px solid var(--glass-border); text-align: center; }
+    .tip-card i { font-size: 2rem; color: var(--gold-premium); margin-bottom: 15px; }
+    .footer { text-align: center; padding: 30px; color: var(--text-muted); border-top: 1px solid var(--glass-border); margin-top: 40px; }
 
-    /* Live Preview Box */
-    .live-preview-box {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
-      border: 1px dashed var(--gold-premium); border-radius: 14px; padding: 20px;
-      text-align: center; margin-bottom: 25px; display: flex; flex-direction: column; gap: 5px;
-      transition: all var(--transition-fast);
+    /* Login Modal */
+    #loginModal {
+      position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px);
+      display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s;
     }
-    .live-preview-box span { color: var(--text-muted); font-size: 0.95rem; font-weight: 700; text-transform: uppercase;}
-    .live-preview-box h3 { color: var(--gold-premium); font-size: 2.2rem; font-family: var(--font-heading); margin: 0; font-weight: 800;}
+    .login-box {
+      background: var(--bg-surface); padding: 50px 40px; border-radius: 24px;
+      width: 90%; max-width: 420px; border: 1px solid var(--glass-border);
+      text-align: center; transform: translateY(30px); transition: transform 0.3s; position: relative;
+    }
+    .close-modal { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; color: var(--text-muted); background:none; border:none; }
+    .custom-logo-text { font-family: var(--font-heading); font-size: 2.4rem; color: var(--gold-premium); font-weight: 800; letter-spacing: -1px; margin-bottom: 20px;}
+    .custom-logo-text i { background: linear-gradient(135deg, var(--gold-premium), var(--gold-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    .btn-submit {
-      width: 100%; padding: 18px; background: linear-gradient(135deg, var(--gold-premium), #b8860b); color: #000;
-      border: none; border-radius: 14px; font-size: 1.25rem; font-weight: 800; cursor: pointer; transition: var(--transition-fast);
-      font-family: inherit; position: relative; overflow: hidden; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
-    }
-    .btn-submit::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.5s; }
-    .btn-submit:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(212, 175, 55, 0.4); }
-    .btn-submit:hover::after { left: 100%; }
-    .btn-submit:active { transform: translateY(1px); }
+    /* Navigation */
+    .modern-nav { position: fixed; top: 0; left: 0; width: 100%; background: var(--bg-surface); backdrop-filter: blur(24px); border-bottom: 1px solid var(--glass-border); z-index: 1000; }
+    .nav-container { max-width: 1400px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+    .nav-logo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 800; color: var(--text-main); display: flex; align-items: center; gap: 10px; cursor: pointer;}
+    .nav-menu { display: flex; gap: 8px; flex: 1; justify-content: center; }
+    .nav-actions { display: flex; gap: 15px; align-items: center; }
+    .nav-link { text-decoration: none; color: var(--text-muted); font-weight: 700; font-size: 1.05rem; padding: 10px 18px; border-radius: 12px; transition: var(--transition-fast); cursor: pointer; border: 1px solid transparent; background: transparent; display: flex; align-items: center; gap: 8px; display: none; }
+    .nav-link:hover { color: var(--text-main); background: var(--glass-highlight); }
+    .nav-link.active { color: var(--gold-premium); background: var(--glass-highlight); border-color: var(--glass-border); font-weight: 800;}
+    .icon-btn { background: transparent; border: 1px solid var(--glass-border); color: var(--text-main); padding: 10px; border-radius: 50%; cursor: pointer; width: 42px; height: 42px; display:flex; justify-content:center; align-items:center; transition:0.2s;}
+    .icon-btn:hover { background: var(--glass-highlight); color: var(--gold-premium); }
+    .profile-pic { width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-premium); display:none;}
 
-    /* --- Analytics Dashboards --- */
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 30px; }
-    .stat-card {
-      position: relative; padding: 30px 25px; text-align: center; 
-      overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: linear-gradient(90deg, var(--primary-teal), var(--gold-premium)); opacity: 0; transition: var(--transition-smooth); }
-    .stat-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.2); border-color: var(--gold-glow-dark); }
-    .stat-card:hover::before { opacity: 1; }
+    /* Main App */
+    #appContainer { display: none; }
+    .main-content { max-width: 1400px; margin: 120px auto 60px; padding: 0 20px; flex: 1; width: 100%; }
+    .tab-content { display: none; opacity: 0; transform: translateY(15px); transition: all 0.4s ease; }
+    .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
     
-    .stat-icon { font-size: 2.5rem; margin-bottom: 15px; }
-    .stat-title { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 700;}
-    .stat-value { font-size: 2.2rem; font-weight: 800; color: var(--text-main); font-family: var(--font-heading); letter-spacing: 1px;}
-    .stat-currency { font-size: 1rem; color: var(--text-muted); font-weight: 600; margin-inline-start: 5px; }
+    .smart-greeting { text-align: center; margin-bottom: 30px; margin-top: 35px; }
+    .smart-greeting h1 { font-family: var(--font-heading); font-size: 2.2rem; color: var(--text-main); font-weight: 800;}
+    .smart-greeting p { color: var(--text-muted); font-size: 1.1rem; }
 
-    /* Charts */
+    /* Dashboards & Charts */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-bottom: 30px; }
+    .stat-card { padding: 30px 25px; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    .stat-icon { font-size: 2.5rem; margin-bottom: 15px; color: var(--gold-premium);}
+    .stat-title { font-size: 1.15rem; color: var(--text-muted); font-weight: 700; margin-bottom: 8px;}
+    .stat-value { font-size: 2.2rem; font-weight: 800; color: var(--text-main); font-family: var(--font-heading);}
+    
     .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 30px; }
     .chart-wrapper { padding: 25px; height: 480px; position: relative; }
-    .chart-title { font-family: var(--font-heading); color: var(--text-main); font-size: 1.4rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-weight: 800;}
-    .chart-title i { color: var(--gold-premium); }
-    
-    /* Loading Skeletons */
-    .skeleton { background: linear-gradient(90deg, var(--glass-highlight) 25%, var(--glass-border) 50%, var(--glass-highlight) 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 12px; }
-    @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .chart-title { font-family: var(--font-heading); font-size: 1.4rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-weight: 800;}
 
-    /* --- Market TradingView Tabs --- */
-    .market-tabs { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px; }
-    .market-tab { 
-      padding: 10px 20px; background: var(--bg-surface); border: 1px solid var(--glass-border); 
-      border-radius: 12px; color: var(--text-muted); cursor: pointer; font-weight: 700; white-space: nowrap; transition: var(--transition-fast); font-family: inherit; font-size: 1.05rem;
-    }
-    .market-tab:hover { background: var(--glass-highlight); color: var(--text-main); }
+    /* Market & Videos */
+    .market-tabs { display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; }
+    .market-tab { padding: 10px 20px; background: var(--bg-surface); border: 1px solid var(--glass-border); border-radius: 12px; color: var(--text-muted); cursor: pointer; font-weight: 700; white-space: nowrap; }
     .market-tab.active { background: linear-gradient(135deg, var(--gold-premium), #b8860b); color: #000; border-color: transparent; }
     .tradingview-widget-wrapper { height: 650px; overflow: hidden; padding: 10px;}
+    .videos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
 
-    /* --- History Table & Filtering --- */
-    .filter-bar {
-      display: flex; gap: 15px; flex-wrap: wrap; background: var(--glass-highlight); padding: 20px; border-radius: 16px; margin-bottom: 25px; align-items: flex-end; border: 1px solid var(--glass-border);
-    }
-    .filter-group { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 150px; }
-    .filter-group label { color: var(--text-muted); font-size: 1rem; font-weight: 700; }
-    .filter-group input { padding: 12px; border-radius: 10px; border: 1px solid var(--glass-border); background: var(--bg-base); color: var(--text-main); font-family: inherit; font-weight: 600; font-size: 1.05rem;}
-    .filter-btn { padding: 12px 24px; background: var(--primary-teal); color: #fff; border: none; border-radius: 10px; font-weight: 800; font-size: 1.05rem; cursor: pointer; transition: 0.3s; display: flex; gap: 8px; align-items: center; justify-content: center; font-family: inherit;}
-    .filter-btn:hover { background: var(--deep-teal); }
-    .filter-btn-reset { background: transparent; border: 1px solid var(--glass-border); color: var(--text-main); }
-    .filter-btn-reset:hover { background: rgba(239, 68, 68, 0.1); color: var(--danger); border-color: rgba(239, 68, 68, 0.3); }
-
+    /* Tables */
     .table-container { padding: 30px; overflow-x: auto; }
     .header-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;}
-    .header-actions h2 { font-family: var(--font-heading); color: var(--text-main); font-size: 1.7rem; margin:0; font-weight: 800;}
-    .action-group { display: flex; gap: 10px; }
-    .btn-action {
-      background: var(--bg-base); color: var(--text-main); padding: 12px 20px; border: 1px solid var(--glass-border); 
-      border-radius: 12px; cursor: pointer; font-family: inherit; transition: var(--transition-fast); display: flex; gap: 8px; align-items: center; font-weight: 700; font-size: 1.05rem;
-    }
-    .btn-action:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .btn-action { background: var(--bg-base); color: var(--text-main); padding: 12px 20px; border: 1px solid var(--glass-border); border-radius: 12px; cursor: pointer; font-weight: 700; display:flex; gap:8px;}
     .btn-action.btn-export { background: linear-gradient(135deg, var(--primary-teal), var(--deep-teal)); border: none; color: #fff;}
-    .btn-action.btn-clear { background: rgba(239, 68, 68, 0.1); color: var(--danger); border-color: rgba(239, 68, 68, 0.2); }
-    .btn-action.btn-clear:hover { background: rgba(239, 68, 68, 0.2); }
+    table { width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 800px; }
+    th { padding: 18px 15px; color: var(--text-muted); font-weight: 800; border-bottom: 2px solid var(--glass-border); background: var(--glass-highlight); text-align:right;}
+    td { padding: 18px 15px; background: var(--bg-surface); font-weight: 600; }
+    .row-actions button { background:none; border:none; cursor:pointer; color:var(--text-muted); font-size:1.1rem; padding:5px;}
+    .row-actions button.delete:hover { color:var(--danger); }
     
-    table { width: 100%; border-collapse: separate; border-spacing: 0 8px; min-width: 900px; }
-    th { padding: 18px 15px; color: var(--text-muted); font-weight: 800; font-size: 1rem; text-transform: uppercase; border-bottom: 2px solid var(--glass-border); background: var(--glass-highlight); }
-    td { padding: 18px 15px; background: var(--bg-surface); color: var(--text-main); font-weight: 600; font-size: 1.05rem; transition: var(--transition-fast); border-top: 1px solid transparent; border-bottom: 1px solid transparent; }
-    tr:hover td { background: var(--glass-highlight); border-color: var(--glass-border); }
-    html[dir="rtl"] tr:hover td:first-child { border-right: 1px solid var(--glass-border); }
-    html[dir="rtl"] tr:hover td:last-child { border-left: 1px solid var(--glass-border); }
-    html[dir="ltr"] tr:hover td:first-child { border-left: 1px solid var(--glass-border); }
-    html[dir="ltr"] tr:hover td:last-child { border-right: 1px solid var(--glass-border); }
-    
-    .net-profit-cell { font-weight: 800; color: var(--gold-premium); font-size: 1.2rem; }
-    .badge { padding: 6px 12px; border-radius: 20px; font-size: 0.9rem; font-weight: 800; display: inline-block; letter-spacing: 0.5px;}
-
-    /* Row Actions (Edit/Delete) */
-    .row-actions { display: flex; gap: 8px; justify-content: center; }
-    .btn-icon-small { 
-      background: transparent; border: none; padding: 10px; border-radius: 8px; cursor: pointer; transition: 0.2s; color: var(--text-muted); font-size: 1.1rem;
-    }
-    .btn-icon-small.edit:hover { background: rgba(212, 175, 55, 0.1); color: var(--gold-premium); }
-    .btn-icon-small.delete:hover { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-
-    /* --- NEW Admin Settings Grid Redesign --- */
+    /* Admin Section */
     .admin-grid { display: grid; grid-template-columns: 1fr; gap: 30px; }
     @media(min-width: 1024px) { .admin-grid { grid-template-columns: 1fr 1fr; } }
-    
-    .admin-section { padding: 30px; background: var(--bg-surface); border: 1px solid var(--glass-border); border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-    .admin-section-title { font-family: var(--font-heading); color: var(--text-main); font-size: 1.6rem; margin-bottom: 25px; font-weight: 800; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px;}
-    .admin-section-title i { color: var(--gold-premium); }
+    .admin-section { padding: 30px; background: var(--bg-surface); border: 1px solid var(--glass-border); border-radius: 24px; }
+    .admin-section-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 25px; border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; color:var(--gold-premium);}
+    .user-card { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: var(--glass-highlight); border: 1px solid var(--glass-border); border-radius: 16px; margin-bottom:10px;}
 
-    .user-list { display: flex; flex-direction: column; gap: 15px;}
-    .user-card { display: flex; justify-content: space-between; align-items: center; padding: 20px; background: var(--glass-highlight); border: 1px solid var(--glass-border); border-radius: 16px; transition: 0.3s; flex-wrap: wrap; gap: 15px;}
-    .user-card:hover { transform: translateY(-3px); border-color: var(--gold-glow-dark); }
-    .user-info { display: flex; align-items: center; gap: 15px; }
-    .color-dot { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--bg-surface); }
-    
-    .capital-list { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; margin-top: 20px; padding-inline-end: 10px;}
-    .capital-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(0,0,0,0.1); border-radius: 12px; border: 1px solid var(--glass-border); font-size: 0.95rem; font-weight: 600;}
-    .capital-item.increase { border-right: 4px solid var(--success); }
-    .capital-item.decrease { border-right: 4px solid var(--danger); }
-    html[dir="ltr"] .capital-item.increase { border-right: none; border-left: 4px solid var(--success); }
-    html[dir="ltr"] .capital-item.decrease { border-right: none; border-left: 4px solid var(--danger); }
-    .capital-date { color: var(--text-muted); font-size: 0.85rem;}
-    .capital-amount { font-weight: 800; font-size: 1.1rem; }
-    .capital-amount.up { color: var(--success); }
-    .capital-amount.down { color: var(--danger); }
+    /* Toasts */
+    .toast-container { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column-reverse; gap: 10px; pointer-events: none;}
+    .toast { background: var(--bg-surface); border: 1px solid var(--glass-border); padding: 16px 24px; border-radius: 16px; display: flex; align-items: center; gap: 12px; opacity: 0; transform: translateY(30px); transition: 0.4s; font-weight: 700; color:#fff;}
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.success { border-bottom: 3px solid var(--success); }
+    .toast.error { border-bottom: 3px solid var(--danger); }
 
-    /* --- Smart Toasts (with Progress) --- */
-    .toast-container { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column-reverse; gap: 10px; pointer-events: none;}
-    .toast {
-      background: var(--bg-surface); border: 1px solid var(--glass-border); color: var(--text-main); padding: 16px 24px;
-      border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.3); display: flex; flex-direction: column; gap: 8px; font-weight: 700; font-size: 1.05rem;
-      opacity: 0; transform: translateY(30px) scale(0.9); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); min-width: 320px; overflow: hidden; position: relative;
-    }
-    .toast.show { opacity: 1; transform: translateY(0) scale(1); }
-    .toast-content { display: flex; align-items: center; gap: 12px; }
-    .toast i { font-size: 1.4rem; }
-    .toast.success { border-left: 5px solid var(--success); }
-    .toast.success i { color: var(--success); }
-    .toast.error { border-left: 5px solid var(--danger); }
-    .toast.error i { color: var(--danger); }
-    html[dir="rtl"] .toast.success { border-left: none; border-right: 5px solid var(--success); }
-    html[dir="rtl"] .toast.error { border-left: none; border-right: 5px solid var(--danger); }
-    
-    .toast-progress { position: absolute; bottom: 0; left: 0; height: 3px; background: rgba(255,255,255,0.2); width: 100%; }
-    .toast-progress-bar { height: 100%; background: var(--text-main); width: 100%; animation: progress shrink linear forwards; }
-    .toast.success .toast-progress-bar { background: var(--success); }
-    .toast.error .toast-progress-bar { background: var(--danger); }
-    @keyframes shrink { from { width: 100%; } to { width: 0%; } }
-
-    /* --- PREMIUM MOBILE APP UI (Card View for Tables) --- */
-    @media (max-width: 768px) {
-      .nav-container { padding: 15px; }
-      .nav-logo { font-size: 1.4rem; }
-      .nav-menu {
-        position: fixed; bottom: 0; left: 0; width: 100%; 
-        background: var(--bg-surface); border-top: 1px solid var(--glass-border);
-        backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-        padding: 10px 5px calc(10px + env(safe-area-inset-bottom));
-        justify-content: space-around; z-index: 1000; box-shadow: 0 -10px 30px rgba(0,0,0,0.1);
-      }
-      .nav-link { flex-direction: column; font-size: 0.75rem; padding: 10px 4px; gap: 6px; border-radius: 14px; width: 22%; text-align: center; font-weight: 600;}
-      .nav-link i { font-size: 1.3rem; margin: 0; }
-      .nav-link span.tab-text { display: block; white-space: nowrap; font-size: 0.75rem;}
-      .nav-link.active { transform: translateY(-5px); box-shadow: 0 5px 15px var(--gold-glow-dark); }
-      
-      .main-content { margin-top: 100px; margin-bottom: 100px; padding: 0 15px; }
-      .smart-greeting h1 { font-size: 1.8rem; }
-      .charts-container { grid-template-columns: 1fr; }
-      .chart-wrapper { height: 380px; padding: 15px; }
-      
-      .header-actions { flex-direction: column; gap: 15px; align-items: stretch;}
-      .action-group { display: flex; flex-direction: column; gap: 10px; width: 100%;}
-      .btn-action { justify-content: center; width: 100%;}
-      .form-container, .table-container, .admin-section { padding: 25px 15px; }
-      .tradingview-widget-wrapper { height: 500px; }
-      
-      .nav-actions span { display: none; } /* Hide user info top bar */
-      .toast-container { bottom: 100px; width: 90%; }
-
-      /* Mobile Card View for Table */
-      table, thead, tbody, th, td, tr { display: block; }
-      thead tr { position: absolute; top: -9999px; left: -9999px; }
-      table { min-width: 100%; border-spacing: 0; }
-      tr { 
-        border: 1px solid var(--glass-border); margin-bottom: 15px; border-radius: 16px; 
-        padding: 15px; background: var(--glass-highlight); position: relative;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-      }
-      td { position: relative; padding: 12px 15px; padding-inline-start: 50%; text-align: end; border: none; font-size: 1.05rem; font-weight: 700; border-bottom: 1px solid var(--glass-border); }
-      td:last-child { border-bottom: none; }
-      html[dir="rtl"] td { padding-inline-start: 50%; text-align: left; }
-      td::before { 
-        content: attr(data-label); position: absolute; top: 12px; inset-inline-start: 15px; width: 45%; 
-        white-space: nowrap; font-weight: 800; color: var(--text-muted); text-align: start; 
-      }
-      .row-actions { justify-content: flex-end; padding-top: 10px; }
-    }
+    /* Loader */
+    .global-loader { position:fixed; inset:0; background:var(--bg-base); z-index:10000; display:flex; justify-content:center; align-items:center; flex-direction:column; gap:20px;}
+    .spinner { width: 50px; height: 50px; border: 5px solid var(--glass-border); border-top-color: var(--gold-premium); border-radius: 50%; animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <div class="background-pattern"></div>
   <div class="toast-container" id="toastContainer"></div>
+  <div class="global-loader" id="globalLoader"><div class="spinner"></div><h3 style="color:var(--gold-premium)">GoldenPeak Capital</h3></div>
 
-  <div id="loginScreen">
-    <div class="login-box">
-      <div class="login-logo">
-        <img class="custom-logo-img" style="display:none; max-height: 80px; margin: 0 auto 20px; border-radius: 12px;">
-        <div class="custom-logo-text"><i class="fa-solid fa-gem"></i> IronPeak <span class="brand-gold">Capital</span></div>
+  <div id="landingPage">
+    <nav class="modern-nav" style="position:absolute;">
+      <div class="nav-container">
+        <div class="nav-logo" ondblclick="window.initAdminHidden()">
+          <i class="fa-solid fa-gem" style="color:var(--gold-premium)"></i> GoldenPeak
+        </div>
+        <div class="nav-actions">
+          <button class="icon-btn" onclick="window.toggleTheme()"><i class="fa-regular fa-moon" id="themeIconL"></i></button>
+          <button class="btn-action" style="background:var(--gold-premium); color:#000; border:none;" onclick="window.openLoginModal()">تسجيل الدخول <i class="fa-solid fa-arrow-right-to-bracket"></i></button>
+        </div>
       </div>
-      <h3 id="loginTitleText" style="margin-bottom: 25px; color: var(--text-muted); font-weight: 700;">تسجيل الدخول للنظام</h3>
+    </nav>
+    <div class="hero-section">
+      <h1 class="hero-title">الاستثمار الذكي في مكان واحد</h1>
+      <p class="hero-subtitle">منصة GoldenPeak Capital تتيح لك متابعة تحليلاتك المالية وأرباحك اليومية بشفافية واحترافية.</p>
+      <div class="video-container" id="welcomeVideoContainer">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card"><i class="fa-solid fa-chart-line"></i><h3>تحليلات دقيقة</h3><p>راقب أداء محفظتك عبر رسوم بيانية محدثة لحظياً.</p></div>
+      <div class="tip-card"><i class="fa-solid fa-shield-halved"></i><h3>أمان عالي</h3><p>نظام محمي بأحدث تقنيات التشفير من Firebase.</p></div>
+      <div class="tip-card"><i class="fa-solid fa-bolt"></i><h3>أسواق عالمية</h3><p>تابع حركة الأسواق الحية لجميع الأصول من مكان واحد.</p></div>
+    </div>
+    <div class="footer" id="landingFooter">GoldenPeak Capital © 2026 - للدعم الفني: support@goldenpeak.com</div>
+  </div>
+
+  <div id="loginModal">
+    <div class="login-box">
+      <button class="close-modal" onclick="window.closeLoginModal()">&times;</button>
+      <div class="custom-logo-text"><i class="fa-solid fa-gem"></i> GoldenPeak</div>
+      <h3 style="margin-bottom: 25px; color: var(--text-muted);">تسجيل الدخول للنظام</h3>
       <form id="loginForm">
         <div class="form-group">
-          <input type="text" id="loginUser" class="form-control" required placeholder=" " autocomplete="username">
-          <label for="loginUser" class="form-label" data-i18n="username">اسم المستخدم</label>
+          <input type="email" id="loginEmail" class="form-control" required placeholder=" ">
+          <label class="form-label">البريد الإلكتروني</label>
         </div>
         <div class="form-group">
-          <input type="password" id="loginPass" class="form-control" required placeholder=" " autocomplete="current-password">
-          <label for="loginPass" class="form-label" data-i18n="password">كلمة المرور</label>
+          <input type="password" id="loginPass" class="form-control" required placeholder=" ">
+          <label class="form-label">كلمة المرور</label>
         </div>
-        <button type="submit" class="btn-submit" data-i18n="loginBtn">دخول آمن</button>
+        <button type="submit" class="btn-submit" id="loginBtnSpinner">دخول آمن</button>
       </form>
     </div>
   </div>
@@ -474,110 +278,74 @@
   <div id="appContainer">
     <nav class="modern-nav">
       <div class="nav-container">
-        
-        <div class="nav-logo" onclick="switchTab('analytics')">
-          <img class="custom-logo-img" style="display:none; max-height: 40px; border-radius: 6px;">
-          <span class="custom-logo-text" style="display: inline-flex; align-items: center; gap: 10px;">
-            <i class="fa-solid fa-gem"></i> <span data-i18n="brand1">IronPeak</span>&nbsp;<span class="brand-gold" data-i18n="brand2">Capital</span>
-          </span>
+        <div class="nav-logo" onclick="window.switchTab('analytics')">
+          <i class="fa-solid fa-gem" style="color:var(--gold-premium)"></i> GoldenPeak
         </div>
-        
         <div class="nav-actions">
-          <span id="currentUserDisplay" style="color: var(--text-muted); font-weight: 700; margin-inline-end: 10px; font-size: 1.05rem;"></span>
-          <button class="icon-btn" onclick="toggleTheme()" title="تغيير المظهر" id="themeBtn">
-            <i class="fa-regular fa-moon"></i>
-          </button>
-          <button class="icon-btn" onclick="toggleLanguage()" title="تغيير اللغة">
-            <i class="fa-solid fa-language"></i>
-          </button>
-          <button class="icon-btn" onclick="logout()" title="تسجيل الخروج">
-            <i class="fa-solid fa-power-off" style="color: var(--danger)"></i>
-          </button>
+          <img id="navProfilePic" class="profile-pic" src="">
+          <span id="currentUserDisplay" style="color: var(--text-muted); font-weight: 700; margin-inline-end: 10px;"></span>
+          <button class="icon-btn" onclick="window.toggleTheme()"><i class="fa-regular fa-moon" id="themeIconA"></i></button>
+          <button class="icon-btn" onclick="window.logout()"><i class="fa-solid fa-power-off" style="color: var(--danger)"></i></button>
         </div>
       </div>
-      <div class="nav-menu">
-        <button class="nav-link active" onclick="switchTab('analytics')" id="navAnalytics">
-          <i class="fa-solid fa-chart-pie"></i> <span class="tab-text" data-i18n="navAnalytics">لوحة القيادة</span>
-        </button>
-        <button class="nav-link" onclick="switchTab('input')" id="navInput">
-          <i class="fa-solid fa-pen-nib"></i> <span class="tab-text" data-i18n="navInput">إدخال/تعديل</span>
-        </button>
-        <button class="nav-link" onclick="switchTab('market')" id="navMarket">
-          <i class="fa-solid fa-chart-line"></i> <span class="tab-text" data-i18n="navMarket">الأسواق</span>
-        </button>
-        <button class="nav-link" onclick="switchTab('transactions')" id="navHistory">
-          <i class="fa-solid fa-clock-rotate-left"></i> <span class="tab-text" data-i18n="navHistory">السجل المالي</span>
-        </button>
-        <button class="nav-link" onclick="switchTab('admin')" id="navAdmin" style="display: none;">
-          <i class="fa-solid fa-user-gear"></i> <span class="tab-text" data-i18n="navAdmin">تعريفات النظام</span>
-        </button>
+      <div class="nav-menu" id="navMenuLinks">
+        <button class="nav-link active" onclick="window.switchTab('analytics')" id="navAnalytics" data-role="all"><i class="fa-solid fa-chart-pie"></i> لوحة القيادة</button>
+        <button class="nav-link" onclick="window.switchTab('input')" id="navInput" data-role="admin"><i class="fa-solid fa-pen-nib"></i> إدخال الأرباح</button>
+        <button class="nav-link" onclick="window.switchTab('market')" id="navMarket" data-role="all"><i class="fa-solid fa-chart-line"></i> الأسواق</button>
+        <button class="nav-link" onclick="window.switchTab('transactions')" id="navHistory" data-role="all"><i class="fa-solid fa-clock-rotate-left"></i> السجل المالي</button>
+        <button class="nav-link" onclick="window.switchTab('admin')" id="navAdmin" data-role="admin"><i class="fa-solid fa-user-gear"></i> إعدادات النظام</button>
+        <button class="nav-link" onclick="window.openTelegram()" id="navTelegram" data-role="client"><i class="fa-brands fa-telegram" style="color:#0088cc"></i> قناة التلجرام</button>
+        <button class="nav-link" onclick="window.switchTab('videos')" id="navVideos" data-role="gold"><i class="fa-solid fa-video" style="color:var(--gold-premium)"></i> المكتبة الذهبية</button>
       </div>
     </nav>
 
     <main class="main-content">
       
       <section id="analytics" class="tab-content active">
-        <div class="smart-greeting" id="greetingArea">
-          </div>
-
-        <div class="cards-grid" id="analyticsCardsGrid">
-          <div class="skeleton" style="height: 180px;"></div>
-          <div class="skeleton" style="height: 180px;"></div>
-          <div class="skeleton" style="height: 180px;"></div>
-          <div class="skeleton" style="height: 180px;"></div>
+        <div class="smart-greeting">
+          <h1 id="greetingName">مرحباً بك</h1>
+          <p>إليك ملخص الأداء المالي.</p>
         </div>
-
+        <div class="cards-grid" id="analyticsCardsGrid">
+          <div class="stat-card premium-card"><div class="spinner"></div></div>
+        </div>
         <div class="charts-container">
           <div class="premium-card chart-wrapper">
-            <div class="chart-title"><i class="fa-solid fa-chart-column"></i> <span data-i18n="chartMonthly">الأداء الشهري للشركاء</span></div>
-            <div style="position: relative; height: 85%; width: 100%;">
-              <canvas id="monthlyChart"></canvas>
-            </div>
+            <div class="chart-title"><i class="fa-solid fa-chart-column"></i> الأرباح الشهرية</div>
+            <div style="position: relative; height: 85%; width: 100%;"><canvas id="monthlyChart"></canvas></div>
           </div>
           <div class="premium-card chart-wrapper">
-            <div class="chart-title"><i class="fa-solid fa-chart-area"></i> <span data-i18n="chartDaily">نمو الأرباح وصافي الربح اليومي</span></div>
-            <div style="position: relative; height: 85%; width: 100%;">
-              <canvas id="dailyCumulativeChart"></canvas>
-            </div>
+            <div class="chart-title"><i class="fa-solid fa-chart-area"></i> صافي الربح اليومي والتراكمي</div>
+            <div style="position: relative; height: 85%; width: 100%;"><canvas id="dailyChart"></canvas></div>
           </div>
         </div>
       </section>
 
       <section id="input" class="tab-content">
-        <div class="premium-card form-container">
-          <div class="form-header">
-            <h2 id="formMainTitle" data-i18n="inputTitle">إدخال أرباح جديدة</h2>
-            <p id="formSubTitle" data-i18n="inputDesc">أدخل صافي أرباح اليوم ليتم توزيعها أو إدخالها للشركاء بدقة</p>
-          </div>
+        <div class="premium-card form-container" style="margin: 0 auto; max-width: 600px;">
+          <h2 class="admin-section-title" style="text-align:center; border:none;">إدخال أرباح لعميل</h2>
           <form id="entryForm">
-            <input type="hidden" id="editEntryId" value="">
-            
+            <input type="hidden" id="editProfitId">
             <div class="form-group">
-              <input type="date" id="date" class="form-control" required placeholder=" ">
-              <label for="date" class="form-label" data-i18n="date">التاريخ</label>
+              <select id="entryClient" class="form-control" required style="cursor:pointer; appearance:none;">
+                <option value="">-- اختر العميل --</option>
+              </select>
+              <label class="form-label" style="top:-10px; background:var(--bg-surface); padding:0 5px;">العميل المستفيد</label>
             </div>
-
-            <div class="form-group" style="margin-bottom: 40px; padding-bottom: 25px; border-bottom: 1px dashed var(--glass-border);">
-              <label style="color:var(--text-main); font-size: 1.1rem; font-weight:800; margin-bottom: 10px; display:block;" data-i18n="autoDistribute">توزيع تلقائي (أدخل إجمالي الربح)</label>
-              <div class="stepper-wrapper">
-                 <input type="number" id="masterNetProfit" class="stepper-input" step="1" placeholder="0.00">
-              </div>
-              <small style="color:var(--info); font-size: 0.9rem; font-weight: 600; margin-top: 8px; display:block;"><i class="fa-solid fa-wand-magic-sparkles"></i> عند إدخال رقم هنا، سيتم توزيعه تلقائياً بناءً على نسب الشركاء الحالية.</small>
+            <div class="form-group">
+              <input type="date" id="entryDate" class="form-control" required placeholder=" ">
+              <label class="form-label">التاريخ</label>
             </div>
-            
-            <div id="dynamicPartnerInputs"></div>
-
-            <div class="live-preview-box" id="livePreviewBox">
-              <span data-i18n="liveTotal">إجمالي الربح الصافي للعملية</span>
-              <h3 id="liveTotalAmount">0.00 <small style="font-size:1rem" data-i18n="currency">JD</small></h3>
+            <div class="form-group">
+              <input type="number" id="entryAmount" class="form-control" step="0.01" required placeholder=" ">
+              <label class="form-label">صافي الربح ($)</label>
             </div>
-
-            <button type="submit" class="btn-submit" id="saveDataBtn">
-              <i class="fa-solid fa-check-double"></i> <span data-i18n="saveBtn">اعتماد وحفظ البيانات</span>
-            </button>
-            <button type="button" class="btn-action btn-clear" id="cancelEditBtn" style="display:none; width: 100%; justify-content: center; margin-top: 15px;" onclick="cancelEditing()">
-              <i class="fa-solid fa-times"></i> <span data-i18n="cancelEdit">إلغاء التعديل</span>
-            </button>
+            <div class="form-group">
+              <input type="text" id="entryNote" class="form-control" placeholder=" ">
+              <label class="form-label">ملاحظة (اختياري)</label>
+            </div>
+            <button type="submit" class="btn-submit" id="btnSaveProfit">اعتماد وحفظ البيانات</button>
+            <button type="button" class="btn-action" style="width:100%; justify-content:center; margin-top:10px; display:none; color:var(--danger); border-color:var(--danger)" id="btnCancelEdit" onclick="window.cancelEditProfit()">إلغاء التعديل</button>
           </form>
         </div>
       </section>
@@ -585,1034 +353,605 @@
       <section id="market" class="tab-content">
         <div class="premium-card" style="padding: 20px;">
           <div class="market-tabs">
-            <button class="market-tab active" onclick="loadMarket('OANDA:XAUUSD', this)">الذهب (XAU/USD)</button>
-            <button class="market-tab" onclick="loadMarket('BINANCE:BTCUSDT', this)">Bitcoin (BTC)</button>
-            <button class="market-tab" onclick="loadMarket('OANDA:EURUSD', this)">EUR/USD</button>
-            <button class="market-tab" onclick="loadMarket('NASDAQ:AAPL', this)">Apple Inc.</button>
+            <button class="market-tab active" onclick="window.loadMarket('OANDA:XAUUSD', this)">الذهب (XAU/USD)</button>
+            <button class="market-tab" onclick="window.loadMarket('BINANCE:BTCUSDT', this)">Bitcoin (BTC)</button>
+            <button class="market-tab" onclick="window.loadMarket('OANDA:EURUSD', this)">EUR/USD</button>
           </div>
-          <div class="tradingview-widget-wrapper" id="tv_container">
-            </div>
+          <div class="tradingview-widget-wrapper" id="tv_container"></div>
         </div>
       </section>
 
       <section id="transactions" class="tab-content">
         <div class="premium-card table-container">
-          
           <div class="header-actions">
-            <h2><i class="fa-solid fa-list-check" style="color:var(--gold-premium); margin-inline-end:10px;"></i> <span data-i18n="historyTitle">السجل المالي التفصيلي</span></h2>
-            <div class="action-group">
-              <button class="btn-action btn-clear" onclick="clearData()"><i class="fa-solid fa-trash-can"></i> <span data-i18n="clearBtn">مسح الكل</span></button>
-              <button class="btn-action btn-export" onclick="exportToExcel()"><i class="fa-solid fa-file-excel"></i> <span data-i18n="exportBtn">تصدير Excel</span></button>
-            </div>
+            <h2 style="font-family:var(--font-heading); color:var(--gold-premium);"><i class="fa-solid fa-list-check"></i> السجل المالي</h2>
+            <button class="btn-action btn-export" onclick="window.exportExcel()"><i class="fa-solid fa-file-excel"></i> تصدير Excel</button>
           </div>
-
-          <div class="filter-bar">
-            <div class="filter-group">
-              <label data-i18n="filterFrom">من تاريخ</label>
-              <input type="date" id="filterFrom">
-            </div>
-            <div class="filter-group">
-              <label data-i18n="filterTo">إلى تاريخ</label>
-              <input type="date" id="filterTo">
-            </div>
-            <button class="filter-btn" onclick="applyFilter()"><i class="fa-solid fa-filter"></i> <span data-i18n="applyFilter">تطبيق الفلتر</span></button>
-            <button class="filter-btn filter-btn-reset" onclick="resetFilter()"><i class="fa-solid fa-rotate-left"></i> <span data-i18n="resetFilter">إلغاء</span></button>
-          </div>
-
-          <table id="dataTable">
+          <table id="historyTable">
             <thead>
-              <tr id="tableHeaderRow"></tr>
+              <tr>
+                <th>التاريخ</th>
+                <th class="col-client" style="display:none;">العميل</th>
+                <th>المبلغ ($)</th>
+                <th>ملاحظة</th>
+                <th class="col-action" style="display:none;">إجراءات</th>
+              </tr>
             </thead>
-            <tbody id="tableBody">
-              </tbody>
+            <tbody id="historyBody"></tbody>
           </table>
         </div>
       </section>
 
+      <section id="videos" class="tab-content">
+        <h2 style="color:var(--gold-premium); margin-bottom: 20px; font-family:var(--font-heading);"><i class="fa-solid fa-video"></i> المكتبة الذهبية</h2>
+        <div class="videos-grid" id="clientVideosGrid"></div>
+      </section>
+
       <section id="admin" class="tab-content">
         <div class="admin-grid">
-          
-          <div style="display: flex; flex-direction: column; gap: 30px;">
-            
-            <div class="admin-section">
-               <div class="admin-section-title"><i class="fa-solid fa-vault"></i> <span data-i18n="manageCapital">إدارة رأس المال</span></div>
-               
-               <form id="capitalForm" style="display: grid; grid-template-columns: 1fr; gap: 20px;">
-                 <div class="form-group" style="margin-bottom:0;">
-                   <input type="number" id="cap_amount" class="form-control" step="0.01" required placeholder=" ">
-                   <label for="cap_amount" class="form-label" data-i18n="capAmount">المبلغ</label>
-                 </div>
-                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                   <div class="form-group" style="margin-bottom:0;">
-                     <input type="date" id="cap_date" class="form-control" required placeholder=" ">
-                     <label for="cap_date" class="form-label" data-i18n="date">التاريخ</label>
-                   </div>
-                   <div class="form-group" style="margin-bottom:0;">
-                     <select id="cap_type" class="form-control" style="appearance: none; cursor:pointer;">
-                        <option value="increase" data-i18n="capIncrease">إيداع / زيادة</option>
-                        <option value="decrease" data-i18n="capDecrease">سحب / تخفيض</option>
-                     </select>
-                     <label for="cap_type" class="form-label" style="transform: translateY(-30px) scale(0.85); background: var(--bg-surface); padding: 0 10px; border-radius: 6px; border: 1px solid var(--glass-border); color: var(--gold-premium);" data-i18n="capType">نوع الحركة</label>
-                   </div>
-                 </div>
-                 <div class="form-group" style="margin-bottom:0;">
-                   <input type="text" id="cap_note" class="form-control" placeholder=" ">
-                   <label for="cap_note" class="form-label" data-i18n="capNote">ملاحظة (اختياري)</label>
-                 </div>
-                 <button type="submit" class="btn-submit"><i class="fa-solid fa-plus-minus"></i> <span data-i18n="saveCapBtn">حفظ الحركة</span></button>
-               </form>
-
-               <div style="margin-top: 25px;">
-                 <h4 style="color:var(--text-main); margin-bottom:10px; font-weight: 800;" data-i18n="capHistory">سجل رأس المال</h4>
-                 <div class="capital-list" id="capitalHistoryList"></div>
-               </div>
-            </div>
-
-            <div class="admin-section">
-              <div class="admin-section-title"><i class="fa-solid fa-user-plus"></i> <span data-i18n="addPartnerTitle">تعريف شريك جديد</span></div>
-              <form id="addPartnerForm" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="form-group" style="margin-bottom:0;">
-                  <input type="text" id="p_username" class="form-control" required placeholder=" ">
-                  <label for="p_username" class="form-label" data-i18n="pUsername">اسم الدخول</label>
-                </div>
-                <div class="form-group" style="margin-bottom:0;">
-                  <input type="text" id="p_password" class="form-control" required placeholder=" ">
-                  <label for="p_password" class="form-label" data-i18n="pPassword">كلمة المرور</label>
-                </div>
-                <div class="form-group" style="margin-bottom:0;">
-                  <input type="text" id="p_nameAr" class="form-control" required placeholder=" ">
-                  <label for="p_nameAr" class="form-label" data-i18n="pNameAr">الاسم عربي</label>
-                </div>
-                <div class="form-group" style="margin-bottom:0;">
-                  <input type="text" id="p_nameEn" class="form-control" required placeholder=" ">
-                  <label for="p_nameEn" class="form-label" data-i18n="pNameEn">الاسم إنجليزي</label>
-                </div>
-                <div class="form-group" style="grid-column: 1 / -1; margin-bottom: 0;">
-                  <label style="color:var(--text-muted); font-size: 1rem; font-weight:700; margin-bottom: 10px; display:block;" data-i18n="pColor">اللون التعريفي</label>
-                  <input type="color" id="p_color" value="#00A693" style="width: 100%; height: 50px; border:2px solid var(--glass-border); border-radius: 12px; cursor:pointer; background: transparent; padding: 5px;">
-                </div>
-                <button type="submit" class="btn-submit" style="grid-column: 1 / -1;"><i class="fa-solid fa-save"></i> <span data-i18n="addPartnerBtn">حفظ الشريك</span></button>
-              </form>
-            </div>
-            
+          <div class="admin-section">
+            <h2 class="admin-section-title"><i class="fa-solid fa-user-plus"></i> إدارة العملاء</h2>
+            <form id="addClientForm" style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-bottom: 30px;">
+              <div class="form-group" style="grid-column: 1/-1;">
+                <input type="email" id="cEmail" class="form-control" required placeholder=" ">
+                <label class="form-label">البريد الإلكتروني للعميل</label>
+              </div>
+              <div class="form-group">
+                <input type="text" id="cPass" class="form-control" required placeholder=" ">
+                <label class="form-label">كلمة المرور المؤقتة</label>
+              </div>
+              <div class="form-group">
+                <input type="text" id="cName" class="form-control" required placeholder=" ">
+                <label class="form-label">اسم العميل</label>
+              </div>
+              <div class="form-group">
+                <select id="cType" class="form-control" style="appearance:none; cursor:pointer;">
+                  <option value="regular">عادي (Regular)</option>
+                  <option value="gold">ذهبي (Gold)</option>
+                </select>
+                <label class="form-label" style="top:-10px; background:var(--bg-surface); padding:0 5px;">نوع الحساب</label>
+              </div>
+              <div class="form-group">
+                <input type="file" id="cPhoto" class="form-control" accept="image/*" style="padding-top:12px;">
+                <label class="form-label" style="top:-10px; background:var(--bg-surface); padding:0 5px;">صورة شخصية (اختياري)</label>
+              </div>
+              <button type="submit" class="btn-submit" style="grid-column:1/-1;" id="btnSaveClient">إضافة / تحديث العميل</button>
+            </form>
+            <h3 style="color:var(--text-main); margin-bottom:15px;">قائمة العملاء</h3>
+            <div id="clientsListContainer" style="max-height:400px; overflow-y:auto; padding-right:5px;"></div>
           </div>
 
-          <div class="admin-section" style="align-self: start;">
-            <div class="admin-section-title"><i class="fa-solid fa-percent"></i> <span data-i18n="distributePercentages">توزيع نسب الشركاء</span></div>
-            <p style="color:var(--text-muted); font-size:0.95rem; font-weight:600; margin-bottom: 25px;"><i class="fa-solid fa-circle-info" style="color:var(--info);"></i> يجب أن يكون مجموع النسب 100% بالضبط للحفظ. يتم تطبيق هذه النسب على الإدخالات الجديدة فقط.</p>
-            
-            <form id="percentagesForm">
-              <div id="adminPercentagesList" class="user-list"></div>
-              
-              <div style="margin-top: 25px; padding-top: 20px; border-top: 1px dashed var(--glass-border); display: flex; justify-content: space-between; align-items: center;">
-                <span style="font-size: 1.2rem; font-weight: 800; color: var(--text-main);" data-i18n="totalSum">المجموع الكلي:</span>
-                <span id="percTotalDisplay" style="font-size: 1.4rem; font-weight: 800; color: var(--danger);">0%</span>
+          <div class="admin-section">
+            <h2 class="admin-section-title"><i class="fa-solid fa-gear"></i> إعدادات المنصة</h2>
+            <form id="platformSettingsForm">
+              <div class="form-group">
+                <input type="url" id="setTelegram" class="form-control" placeholder=" ">
+                <label class="form-label">رابط قناة التلجرام</label>
               </div>
+              <div class="form-group">
+                <input type="email" id="setEmail" class="form-control" placeholder=" ">
+                <label class="form-label">بريد الدعم الفني</label>
+              </div>
+              <h3 style="color:var(--text-muted); font-size:1rem; margin-bottom:10px;">فيديوهات يوتيوب (للحساب الذهبي وصفحة الهبوط)</h3>
+              <div id="videosInputContainer">
+                 </div>
+              <button type="button" class="btn-action" style="margin-bottom:20px; font-size:0.9rem;" onclick="window.addVideoRow()"><i class="fa-solid fa-plus"></i> إضافة فيديو جديد</button>
               
-              <button type="submit" id="savePercBtn" class="btn-submit" style="margin-top: 20px; background: linear-gradient(135deg, var(--success), #059669); color: #fff;" disabled><i class="fa-solid fa-check-to-slot"></i> <span data-i18n="savePercBtn">اعتماد النسب الجديدة</span></button>
+              <button type="submit" class="btn-submit" id="btnSaveSettings">حفظ إعدادات المنصة</button>
             </form>
           </div>
-
         </div>
       </section>
 
     </main>
   </div>
 
-  <script>
-    /* -----------------------------------------
-       Logo Configuration (إعدادات اللوجو)
-       -----------------------------------------
-       - ضع رابط اللوجو بين علامتي التنصيص بالأسفل لعرض الصورة بدلاً من النص
-       - مثال: const CUSTOM_LOGO_URL = "https://example.com/my-logo.png";
-       - اتركه فارغاً لعرض النص التلقائي (IronPeak Capital)
-    */
-    const CUSTOM_LOGO_URL = ""; 
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getFirestore, collection, doc, setDoc, addDoc, getDoc, getDocs, deleteDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
 
-    /* --- State Management & Configuration --- */
-    // Default percentages required: Omar 66.666%, Rakan 33.334%
-    const defaultPartners = {
-      omar: { id: 'omar', pass: '2026', role: 'partner', nameAr: 'عمر', nameEn: 'Omar', color: '#10b981', percentage: 66.666 },
-      rakan: { id: 'rakan', pass: '2026', role: 'partner', nameAr: 'راكان', nameEn: 'Rakan', color: '#D4AF37', percentage: 33.334 }
-    };
-    const adminUser = { id: 'admin', pass: 'admin2026', role: 'admin', nameAr: 'مدير النظام', nameEn: 'System Admin' };
-
-    let ironPeakLang = localStorage.getItem('ironPeakLang') || 'ar';
-    let currentTheme = localStorage.getItem('ironPeakTheme') || 'dark';
-    let ironPeakPartners = JSON.parse(localStorage.getItem('ironPeakPartners')) || defaultPartners;
-    let ironPeakData = JSON.parse(localStorage.getItem('ironPeakData')) || [];
-    let currentUser = JSON.parse(sessionStorage.getItem('ironPeakUser')) || null;
-    
-    // Capital Logic
-    // Default starting capital if array is empty
-    let initialCapital = [{ id: 'init', date: new Date().toISOString().split('T')[0], amount: 0, type: 'increase', note: 'رأس المال الافتتاحي' }];
-    let ironPeakCapital = JSON.parse(localStorage.getItem('ironPeakCapital')) || initialCapital;
-
-    // Filtering State
-    let filteredData = [...ironPeakData];
-    
-    let monthlyChartInstance = null;
-    let dailyChartInstance = null;
-    let currentMarketSymbol = 'OANDA:XAUUSD';
-
-    /* --- Dictionary (i18n) --- */
-    const dict = {
-      ar: {
-        brand1: "IronPeak", brand2: "Capital", username: "اسم المستخدم", password: "كلمة المرور", loginBtn: "تسجيل دخول آمن",
-        navAnalytics: "لوحة القيادة", navInput: "إدخال/تعديل", navMarket: "الأسواق", navHistory: "السجل المالي", navAdmin: "تعريفات النظام",
-        inputTitle: "إدخال أرباح جديدة", inputDesc: "أدخل صافي أرباح اليوم ليتم توزيعها أو إدخالها للشركاء بدقة", date: "التاريخ", saveBtn: "اعتماد وحفظ البيانات",
-        updateBtn: "تحديث البيانات", cancelEdit: "إلغاء التعديل", editModeTitle: "تعديل حركة مالية", editModeDesc: "أنت تقوم الآن بتعديل بيانات مسجلة مسبقاً",
-        liveTotal: "إجمالي الربح الصافي للعملية", autoDistribute: "توزيع تلقائي (إجمالي الربح)", chartMonthly: "الأداء الشهري للشركاء", chartDaily: "نمو الأرباح وصافي الربح اليومي", 
-        historyTitle: "السجل المالي التفصيلي", clearBtn: "مسح الكل", exportBtn: "تصدير Excel",
-        filterFrom: "من تاريخ", filterTo: "إلى تاريخ", applyFilter: "تطبيق الفلتر", resetFilter: "إلغاء الفلتر",
-        adminTitle: "إدارة النظام", pUsername: "اسم المستخدم", pPassword: "كلمة المرور",
-        pNameAr: "الاسم (عربي)", pNameEn: "الاسم (إنجليزي)", pColor: "اللون التعريفي", addPartnerTitle: "تعريف شريك جديد", addPartnerBtn: "حفظ الشريك", 
-        distributePercentages: "توزيع نسب الشركاء", totalSum: "المجموع الكلي:", savePercBtn: "اعتماد النسب الجديدة",
-        manageCapital: "إدارة رأس المال", capAmount: "المبلغ", capType: "نوع الحركة", capIncrease: "إيداع / زيادة", capDecrease: "سحب / تخفيض", capNote: "ملاحظة (اختياري)", saveCapBtn: "حفظ الحركة", capHistory: "سجل حركات رأس المال", activeCapital: "رأس المال النشط",
-        netProfit: "إجمالي الأرباح المتراكمة", days: "أيام التداول النشطة", dayUnit: "يوم", profitShare: "حصة", thDate: "التاريخ", thMonth: "الشهر", thNet: "صافي الربح", thActions: "إجراءات",
-        errLogin: "بيانات الدخول غير صحيحة", succLogin: "تم تسجيل الدخول بنجاح", succSave: "تم حفظ العملية بنجاح", succUpdate: "تم التحديث بنجاح", succAdd: "تمت إضافة الشريك", 
-        succDel: "تم الحذف", succPerc: "تم اعتماد النسب الجديدة بنجاح", succCap: "تم حفظ حركة رأس المال", confirmClear: "تحذير: هل أنت متأكد من مسح كافة السجلات؟ هذا الإجراء لا يمكن التراجع عنه.", confirmDel: "هل تريد بالتأكيد حذف هذه الحركة؟",
-        emptyData: "لا توجد حركات مسجلة", currency: "JD", noExport: "لا توجد بيانات للتصدير",
-        greetingMorning: "صباح الخير،", greetingAfternoon: "طاب مساؤك،", greetingEvening: "مساء الخير،", greetingSub: "إليك ملخص الأداء المالي حتى اللحظة."
-      },
-      en: {
-        brand1: "IronPeak", brand2: "Capital", username: "Username", password: "Password", loginBtn: "Secure Sign In",
-        navAnalytics: "Dashboard", navInput: "Entry/Edit", navMarket: "Markets", navHistory: "History", navAdmin: "Settings",
-        inputTitle: "New Profit Entry", inputDesc: "Enter or auto-distribute daily net profits accurately", date: "Date", saveBtn: "Submit & Save",
-        updateBtn: "Update Data", cancelEdit: "Cancel Edit", editModeTitle: "Edit Transaction", editModeDesc: "You are currently editing an existing record",
-        liveTotal: "Transaction Net Profit", autoDistribute: "Auto Distribute (Total Profit)", chartMonthly: "Monthly Partner Performance", chartDaily: "Profit Growth & Daily Net", 
-        historyTitle: "Detailed Financial History", clearBtn: "Clear All", exportBtn: "Export Excel",
-        filterFrom: "From Date", filterTo: "To Date", applyFilter: "Apply Filter", resetFilter: "Reset",
-        adminTitle: "System Management", pUsername: "Username", pPassword: "Password",
-        pNameAr: "Name (Arabic)", pNameEn: "Name (English)", pColor: "Chart Color", addPartnerTitle: "Add New Partner", addPartnerBtn: "Save Partner", 
-        distributePercentages: "Distribute Percentages", totalSum: "Total Sum:", savePercBtn: "Save Percentages",
-        manageCapital: "Capital Management", capAmount: "Amount", capType: "Transaction Type", capIncrease: "Deposit / Increase", capDecrease: "Withdraw / Decrease", capNote: "Note (Optional)", saveCapBtn: "Save Transaction", capHistory: "Capital History", activeCapital: "Active Capital",
-        netProfit: "Total Cumulative Profit", days: "Active Trading Days", dayUnit: "Days", profitShare: "Share", thDate: "Date", thMonth: "Month", thNet: "Net Profit", thActions: "Actions",
-        errLogin: "Invalid credentials. Try again.", succLogin: "Login successful", succSave: "Transaction saved", succUpdate: "Updated successfully", succAdd: "Partner added", 
-        succDel: "Deleted", succPerc: "New percentages applied successfully", succCap: "Capital transaction saved", confirmClear: "WARNING: Are you sure you want to clear ALL data?", confirmDel: "Are you sure you want to delete this record?",
-        emptyData: "No records found", currency: "JD", noExport: "No data to export",
-        greetingMorning: "Good Morning,", greetingAfternoon: "Good Afternoon,", greetingEvening: "Good Evening,", greetingSub: "Here is your financial performance summary."
-      }
+    const firebaseConfig = {
+      apiKey: "AIzaSyCxuFGMSbDEOVjy1buAM4i6XeJ57FIGuiY",
+      authDomain: "goldenpeak-f8a0d.firebaseapp.com",
+      projectId: "goldenpeak-f8a0d",
+      storageBucket: "goldenpeak-f8a0d.firebasestorage.app",
+      messagingSenderId: "935788401204",
+      appId: "1:935788401204:web:448b2521962ac533807061"
     };
 
-    /* --- Initialization --- */
-    window.addEventListener('load', () => {
-      // Initialize Logo
-      if(CUSTOM_LOGO_URL && CUSTOM_LOGO_URL.trim() !== "") {
-        document.querySelectorAll('.custom-logo-img').forEach(img => { 
-          img.src = CUSTOM_LOGO_URL; 
-          img.style.display = 'block'; 
-        });
-        document.querySelectorAll('.custom-logo-text').forEach(txt => { 
-          txt.style.display = 'none'; 
-        });
-      }
+    // Initialize Apps
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
 
-      document.documentElement.setAttribute('data-theme', currentTheme);
-      updateThemeIcon();
-      applyLanguage(ironPeakLang);
-      
-      if (currentUser) {
-        showApp();
+    // Secondary app for admin creating clients without logging out
+    const secondaryApp = initializeApp(firebaseConfig, "Secondary");
+    const secondaryAuth = getAuth(secondaryApp);
+
+    // Globals
+    let currentUserDoc = null;
+    let allClients = [];
+    let allProfits = [];
+    let platformSettings = { telegramLink: '', platformEmail: '', youtubeVideos: [] };
+    let chartMonthlyInstance = null;
+    let chartDailyInstance = null;
+    let editingProfitId = null;
+    
+    const ui = {
+      loader: document.getElementById('globalLoader'),
+      landing: document.getElementById('landingPage'),
+      loginModal: document.getElementById('loginModal'),
+      appContainer: document.getElementById('appContainer'),
+      name: document.getElementById('currentUserDisplay'),
+      greetName: document.getElementById('greetingName'),
+      profilePic: document.getElementById('navProfilePic')
+    };
+
+    /* --- Theme --- */
+    window.toggleTheme = () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+      document.querySelectorAll('#themeIconA, #themeIconL').forEach(i => i.className = isDark ? 'fa-regular fa-sun' : 'fa-regular fa-moon');
+      if(chartMonthlyInstance) renderCharts();
+    };
+
+    /* --- Toasts --- */
+    const showToast = (msg, type = 'success') => {
+      const c = document.getElementById('toastContainer');
+      const t = document.createElement('div');
+      t.className = `toast ${type}`;
+      t.innerHTML = `<i class="fa-solid ${type==='success'?'fa-check-circle':'fa-circle-exclamation'}"></i> ${msg}`;
+      c.appendChild(t);
+      setTimeout(() => t.classList.add('show'), 10);
+      setTimeout(() => { t.classList.remove('show'); setTimeout(()=>t.remove(),400); }, 3000);
+    };
+
+    /* --- Auth Listener --- */
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        try {
+          const docSnap = await getDoc(doc(db, "users", user.uid));
+          if (docSnap.exists()) {
+            currentUserDoc = { uid: user.uid, ...docSnap.data() };
+            loadAppUI();
+          } else {
+            // Fallback if user doc missing
+            signOut(auth);
+            showToast('بيانات المستخدم غير مكتملة', 'error');
+          }
+        } catch(e) { console.error(e); }
       } else {
-        document.getElementById('loginScreen').style.display = 'flex';
+        currentUserDoc = null;
+        ui.loader.style.display = 'none';
+        ui.appContainer.style.display = 'none';
+        ui.landing.style.display = 'flex';
+        loadLandingSettings();
       }
-      document.getElementById('date').valueAsDate = new Date();
-      document.getElementById('cap_date').valueAsDate = new Date();
     });
 
-    /* --- Theme & UI Interactions --- */
-    function toggleTheme() {
-      currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', currentTheme);
-      localStorage.setItem('ironPeakTheme', currentTheme);
-      updateThemeIcon();
-      if(monthlyChartInstance) updateAnalytics(); 
-    }
-
-    function updateThemeIcon() {
-      const btn = document.getElementById('themeBtn');
-      btn.innerHTML = currentTheme === 'dark' ? '<i class="fa-regular fa-sun"></i>' : '<i class="fa-regular fa-moon"></i>';
-    }
-
-    /* Ripple Effect */
-    document.querySelectorAll('.nav-link, .btn-submit, .btn-action').forEach(btn => {
-      btn.addEventListener('click', function(e) {
-        let x = e.clientX - e.target.getBoundingClientRect().left;
-        let y = e.clientY - e.target.getBoundingClientRect().top;
-        let ripples = document.createElement('span');
-        ripples.style.left = x + 'px'; ripples.style.top = y + 'px';
-        ripples.classList.add('ripple');
-        this.appendChild(ripples);
-        setTimeout(() => ripples.remove(), 600);
-      });
-    });
-
-    /* --- i18n Logic --- */
-    function toggleLanguage() {
-      ironPeakLang = ironPeakLang === 'ar' ? 'en' : 'ar';
-      localStorage.setItem('ironPeakLang', ironPeakLang);
-      applyLanguage(ironPeakLang);
-      if(currentUser) { renderDynamicUI(); setSmartGreeting(); updateTable(); }
-    }
-
-    function applyLanguage(lang) {
-      document.documentElement.lang = lang;
-      document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (dict[lang][key]) el.innerText = dict[lang][key];
-      });
-      document.getElementById('loginTitleText').innerText = lang === 'ar' ? 'تسجيل الدخول للنظام' : 'Secure System Login';
-      
-      if(currentUser) {
-        document.getElementById('currentUserDisplay').innerText = (lang === 'ar' ? currentUser.nameAr : currentUser.nameEn);
-        if(monthlyChartInstance) updateAnalytics();
-      }
-    }
-
-    function setSmartGreeting() {
-      const hour = new Date().getHours();
-      let greetKey = 'greetingMorning';
-      if (hour >= 12 && hour < 17) greetKey = 'greetingAfternoon';
-      else if (hour >= 17) greetKey = 'greetingEvening';
-      
-      const name = ironPeakLang === 'ar' ? currentUser.nameAr : currentUser.nameEn;
-      const html = `
-        <h1>${dict[ironPeakLang][greetKey]} <span style="color:var(--gold-premium)">${name}</span></h1>
-        <p>${dict[ironPeakLang].greetingSub}</p>
-      `;
-      document.getElementById('greetingArea').innerHTML = html;
-    }
-
-    /* --- Smart Toasts --- */
-    function showToast(message, type = 'success') {
-      const container = document.getElementById('toastContainer');
-      if(container.children.length >= 3) container.removeChild(container.firstChild);
-
-      const toast = document.createElement('div');
-      toast.className = `toast ${type}`;
-      const icon = type === 'success' ? 'fa-circle-check' : 'fa-circle-exclamation';
-      
-      toast.innerHTML = `
-        <div class="toast-content"><i class="fa-solid ${icon}"></i> <span>${message}</span></div>
-        <div class="toast-progress"><div class="toast-progress-bar" style="animation-duration: 3.5s;"></div></div>
-      `;
-      
-      container.appendChild(toast);
-      requestAnimationFrame(() => toast.classList.add('show'));
-      setTimeout(() => { toast.classList.remove('show'); setTimeout(() => toast.remove(), 400); }, 3500);
-    }
-
-    /* --- Authentication --- */
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
+    /* --- Login / Logout --- */
+    window.openLoginModal = () => { ui.loginModal.style.display = 'flex'; setTimeout(()=>ui.loginModal.style.opacity = '1', 10); };
+    window.closeLoginModal = () => { ui.loginModal.style.opacity = '0'; setTimeout(()=>ui.loginModal.style.display = 'none', 300); };
+    
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const user = document.getElementById('loginUser').value.trim().toLowerCase();
-      const pass = document.getElementById('loginPass').value;
-      
-      let authenticatedUser = null;
-      if (user === adminUser.id && pass === adminUser.pass) {
-        authenticatedUser = adminUser;
-      } else if (ironPeakPartners[user] && ironPeakPartners[user].pass === pass) {
-        authenticatedUser = ironPeakPartners[user];
+      const btn = document.getElementById('loginBtnSpinner');
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+      try {
+        await signInWithEmailAndPassword(auth, document.getElementById('loginEmail').value, document.getElementById('loginPass').value);
+        window.closeLoginModal();
+        e.target.reset();
+      } catch (err) {
+        showToast('خطأ في البريد أو كلمة المرور', 'error');
       }
-
-      if (authenticatedUser) {
-        currentUser = authenticatedUser;
-        sessionStorage.setItem('ironPeakUser', JSON.stringify(currentUser));
-        showToast(dict[ironPeakLang].succLogin);
-        showApp();
-      } else {
-        showToast(dict[ironPeakLang].errLogin, 'error');
-      }
+      btn.innerHTML = 'دخول آمن';
     });
 
-    function logout() {
-      sessionStorage.removeItem('ironPeakUser');
-      location.reload();
-    }
+    window.logout = () => signOut(auth);
 
-    function showApp() {
-      document.getElementById('loginScreen').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('loginScreen').style.display = 'none';
-        document.getElementById('appContainer').style.display = 'block';
-        document.getElementById('currentUserDisplay').innerText = (ironPeakLang === 'ar' ? currentUser.nameAr : currentUser.nameEn);
-        
-        if (currentUser.role === 'admin') document.getElementById('navAdmin').style.display = 'flex';
-        
-        setSmartGreeting();
-        renderDynamicUI();
-        filteredData = [...ironPeakData]; 
-        switchTab('analytics'); 
-      }, 400);
-    }
+    /* --- Main UI Setup --- */
+    const loadAppUI = async () => {
+      ui.landing.style.display = 'none';
+      ui.appContainer.style.display = 'block';
+      ui.name.innerText = currentUserDoc.displayName;
+      if(currentUserDoc.profileImageUrl) {
+        ui.profilePic.src = currentUserDoc.profileImageUrl;
+        ui.profilePic.style.display = 'block';
+      }
+      ui.greetName.innerHTML = `مرحباً بك <span style="color:var(--gold-premium)">${currentUserDoc.displayName}</span>`;
 
-    /* --- Tab Navigation --- */
-    function switchTab(tabId) {
+      // Setup Nav Links based on Role
+      document.querySelectorAll('.nav-link').forEach(link => {
+        const r = link.getAttribute('data-role');
+        if (r === 'all') link.style.display = 'flex';
+        else if (r === 'admin' && currentUserDoc.role === 'admin') link.style.display = 'flex';
+        else if (r === 'client' && currentUserDoc.role === 'client') link.style.display = 'flex';
+        else if (r === 'gold' && currentUserDoc.type === 'gold') link.style.display = 'flex';
+        else link.style.display = 'none';
+      });
+
+      // Show specific table columns for admin
+      if(currentUserDoc.role === 'admin') {
+        document.querySelectorAll('.col-client, .col-action').forEach(el => el.style.display = 'table-cell');
+      }
+
+      await fetchSettings();
+      if(currentUserDoc.role === 'admin') {
+        await fetchAllClients();
+        listenToAllProfits();
+      } else {
+        listenToMyProfits();
+        setupClientVideos();
+      }
+
+      window.switchTab('analytics');
+      ui.loader.style.display = 'none';
+    };
+
+    window.switchTab = (tabId) => {
       document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      const activeBtn = document.getElementById('nav' + tabId.charAt(0).toUpperCase() + tabId.slice(1));
+      if(activeBtn) activeBtn.classList.add('active');
       
-      const targetTab = document.getElementById(tabId);
-      if(targetTab) targetTab.classList.add('active');
-      
-      const navId = 'nav' + tabId.charAt(0).toUpperCase() + tabId.slice(1);
-      const navEl = document.getElementById(navId);
-      if(navEl) navEl.classList.add('active');
+      if(tabId === 'market' && !document.getElementById('tv_script')) window.loadMarket('OANDA:XAUUSD');
+    };
 
-      if (tabId === 'analytics') updateAnalytics();
-      if (tabId === 'transactions') { applyFilter(); }
-      if (tabId === 'market' && !document.getElementById('tv_script')) loadMarket(currentMarketSymbol, document.querySelector('.market-tab.active'));
-    }
-
-    /* --- Dynamic UI Rendering based on Partners --- */
-    function renderDynamicUI() {
-      renderEntryForm();
-      renderTableHeaders();
-      if (currentUser.role === 'admin') {
-        renderAdminCapital();
-        renderAdminPercentages();
+    /* --- Settings & Landing Data --- */
+    const fetchSettings = async () => {
+      const s = await getDoc(doc(db, "settings", "platform_settings"));
+      if(s.exists()) platformSettings = s.data();
+      populateSettingsForm();
+    };
+    
+    const loadLandingSettings = async () => {
+      const s = await getDoc(doc(db, "settings", "platform_settings"));
+      if(s.exists()) {
+        const data = s.data();
+        if(data.platformEmail) document.getElementById('landingFooter').innerText = `GoldenPeak Capital © 2026 - للدعم الفني: ${data.platformEmail}`;
+        if(data.youtubeVideos && data.youtubeVideos.length > 0) {
+          document.getElementById('welcomeVideoContainer').innerHTML = data.youtubeVideos[0].embedCode;
+        }
       }
-    }
+    };
 
-    /* Horizontal Stepper Builder */
-    function renderEntryForm() {
-      const container = document.getElementById('dynamicPartnerInputs');
-      container.innerHTML = '';
-      Object.values(ironPeakPartners).forEach(p => {
-        const name = ironPeakLang === 'ar' ? p.nameAr : p.nameEn;
-        const html = `
-          <div class="form-group" style="margin-bottom: 25px;">
-            <div class="stepper-wrapper">
-              <label class="stepper-label" style="color:${p.color}">${dict[ironPeakLang].profitShare} ${name} <span style="font-weight:400; font-size:0.8rem;">(${p.percentage}%)</span></label>
-              <button type="button" class="stepper-btn" onclick="stepValue('profit_${p.id}', -10)"><i class="fa-solid fa-minus"></i></button>
-              <input type="number" id="profit_${p.id}" class="stepper-input profit-input" step="0.01" value="" required placeholder="0.00">
-              <button type="button" class="stepper-btn" onclick="stepValue('profit_${p.id}', 10)"><i class="fa-solid fa-plus"></i></button>
+    /* --- Client Actions (Admin) --- */
+    const fetchAllClients = async () => {
+      const q = query(collection(db, "users"), where("role", "==", "client"));
+      const snap = await getDocs(q);
+      allClients = snap.docs.map(d => ({id: d.id, ...d.data()}));
+      
+      // Update Dropdowns and Lists
+      const s = document.getElementById('entryClient');
+      s.innerHTML = '<option value="">-- اختر العميل --</option>';
+      let listHtml = '';
+      allClients.forEach(c => {
+        s.innerHTML += `<option value="${c.id}">${c.displayName} (${c.type})</option>`;
+        listHtml += `
+          <div class="user-card">
+            <div style="display:flex; align-items:center; gap:10px;">
+              ${c.profileImageUrl ? `<img src="${c.profileImageUrl}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">` : '<i class="fa-solid fa-user-circle" style="font-size:40px; color:var(--text-muted)"></i>'}
+              <div>
+                <strong style="display:block">${c.displayName}</strong>
+                <small style="color:var(--text-muted)">${c.email} | ${c.subscriptionNumber} | <span style="color:${c.type==='gold'?'var(--gold-premium)':'#fff'}">${c.type}</span></small>
+              </div>
             </div>
+            <button class="btn-action" style="color:var(--danger); border-color:var(--danger); padding:8px 12px;" onclick="window.deleteClient('${c.id}')"><i class="fa-solid fa-trash"></i></button>
           </div>
         `;
-        container.innerHTML += html;
       });
-      setupEntryListeners();
-    }
+      document.getElementById('clientsListContainer').innerHTML = listHtml;
+    };
 
-    function stepValue(id, amount) {
-      const input = document.getElementById(id);
-      let val = parseFloat(input.value) || 0;
-      val += amount;
-      input.value = val.toFixed(2);
-      calculateLiveTotal();
-    }
-
-    function renderTableHeaders() {
-      const tr = document.getElementById('tableHeaderRow');
-      let html = `<th>${dict[ironPeakLang].thDate}</th><th>${dict[ironPeakLang].thMonth}</th>`;
-      Object.values(ironPeakPartners).forEach(p => {
-        const name = ironPeakLang === 'ar' ? p.nameAr : p.nameEn;
-        html += `<th>${name}</th><th>%</th>`;
-      });
-      html += `<th>${dict[ironPeakLang].thNet}</th>`;
-      if(currentUser.role === 'admin') html += `<th>${dict[ironPeakLang].thActions}</th>`;
-      tr.innerHTML = html;
-    }
-
-    /* --- Live Calculation & Auto-Distribute --- */
-    function setupEntryListeners() {
-      // Manual input on partner fields
-      document.querySelectorAll('.profit-input').forEach(inp => {
-        inp.addEventListener('input', calculateLiveTotal);
-      });
-      
-      // Master auto-distribute input
-      document.getElementById('masterNetProfit').addEventListener('input', function() {
-        const total = parseFloat(this.value) || 0;
-        Object.values(ironPeakPartners).forEach(p => {
-           const input = document.getElementById(`profit_${p.id}`);
-           if(input) {
-             const val = total * (p.percentage / 100);
-             input.value = val ? val.toFixed(2) : "";
-           }
-        });
-        calculateLiveTotal();
-      });
-    }
-
-    function calculateLiveTotal() {
-      let sum = 0;
-      document.querySelectorAll('.profit-input').forEach(inp => {
-        sum += parseFloat(inp.value) || 0;
-      });
-      const display = document.getElementById('liveTotalAmount');
-      display.innerHTML = `${sum.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})} <small style="font-size:1rem">${dict[ironPeakLang].currency}</small>`;
-      
-      const box = document.getElementById('livePreviewBox');
-      box.style.transform = 'scale(1.02)';
-      setTimeout(() => box.style.transform = 'scale(1)', 200);
-    }
-
-    /* --- Data Entry & Editing Logic --- */
-    document.getElementById('entryForm').addEventListener('submit', function(e) {
+    document.getElementById('addClientForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const btn = document.getElementById('saveDataBtn');
-      const originalHtml = btn.innerHTML;
+      const btn = document.getElementById('btnSaveClient');
       btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
       
-      setTimeout(() => {
-        const dateVal = document.getElementById('date').value;
-        const dateObj = new Date(dateVal);
-        const monthNamesEn = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const monthNamesAr = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+      const email = document.getElementById('cEmail').value;
+      const pass = document.getElementById('cPass').value;
+      const name = document.getElementById('cName').value;
+      const type = document.getElementById('cType').value;
+      const fileInput = document.getElementById('cPhoto');
+      
+      try {
+        // Create user in Auth using Secondary App
+        const userCredential = await createUserWithEmailAndPassword(secondaryAuth, email, pass);
+        const uid = userCredential.user.uid;
+        await signOut(secondaryAuth); // Clear secondary session
         
-        let totalNet = 0;
-        const partnerProfits = {};
-        
-        Object.keys(ironPeakPartners).forEach(id => {
-          const val = parseFloat(document.getElementById(`profit_${id}`).value) || 0;
-          partnerProfits[id] = val;
-          totalNet += val;
-        });
-
-        const editId = document.getElementById('editEntryId').value;
-        
-        const entry = {
-          id: editId ? parseInt(editId) : Date.now(),
-          date: dateVal,
-          monthAr: monthNamesAr[dateObj.getMonth()] + " " + dateObj.getFullYear(),
-          monthEn: monthNamesEn[dateObj.getMonth()] + " " + dateObj.getFullYear(),
-          netProfit: totalNet,
-          profits: partnerProfits,
-          timestamp: dateObj.getTime()
-        };
-
-        if (editId) {
-          const index = ironPeakData.findIndex(d => d.id == editId);
-          if(index !== -1) ironPeakData[index] = entry;
-          showToast(dict[ironPeakLang].succUpdate);
-          cancelEditing(); 
-        } else {
-          ironPeakData.push(entry);
-          showToast(dict[ironPeakLang].succSave);
+        let photoUrl = "";
+        if (fileInput.files[0]) {
+          const imgRef = ref(storage, `profileImages/${uid}`);
+          await uploadBytes(imgRef, fileInput.files[0]);
+          photoUrl = await getDownloadURL(imgRef);
         }
-
-        ironPeakData.sort((a, b) => a.timestamp - b.timestamp);
-        localStorage.setItem('ironPeakData', JSON.stringify(ironPeakData));
-        filteredData = [...ironPeakData]; 
         
-        this.reset();
-        document.getElementById('date').valueAsDate = new Date();
-        document.getElementById('masterNetProfit').value = "";
-        calculateLiveTotal();
-        btn.innerHTML = originalHtml;
+        const subNum = 'SUB-' + Math.floor(100000 + Math.random() * 900000);
         
-      }, 400); 
+        await setDoc(doc(db, "users", uid), {
+          email, displayName: name, subscriptionNumber: subNum, type,
+          profileImageUrl: photoUrl, role: 'client', createdAt: serverTimestamp()
+        });
+        
+        showToast('تمت إضافة العميل بنجاح');
+        e.target.reset();
+        await fetchAllClients();
+      } catch (err) {
+        showToast('خطأ في الإضافة: ' + err.message, 'error');
+      }
+      btn.innerHTML = 'إضافة / تحديث العميل';
     });
 
-    function editEntry(id) {
-      const entry = ironPeakData.find(d => d.id === id);
-      if(!entry) return;
-
-      switchTab('input');
-      
-      document.getElementById('editEntryId').value = entry.id;
-      document.getElementById('date').value = entry.date;
-      document.getElementById('masterNetProfit').value = ""; // clear auto calc during edit
-      
-      Object.keys(ironPeakPartners).forEach(pid => {
-        const input = document.getElementById(`profit_${pid}`);
-        if(input) input.value = entry.profits[pid] || 0;
-      });
-
-      calculateLiveTotal();
-      
-      document.getElementById('formMainTitle').innerText = dict[ironPeakLang].editModeTitle;
-      document.getElementById('formSubTitle').innerText = dict[ironPeakLang].editModeDesc;
-      document.getElementById('formMainTitle').style.color = 'var(--warning)';
-      const btn = document.getElementById('saveDataBtn');
-      btn.innerHTML = `<i class="fa-solid fa-pen"></i> <span>${dict[ironPeakLang].updateBtn}</span>`;
-      btn.style.background = 'linear-gradient(135deg, var(--warning), #d97706)';
-      document.getElementById('cancelEditBtn').style.display = 'flex';
-    }
-
-    function cancelEditing() {
-      document.getElementById('entryForm').reset();
-      document.getElementById('editEntryId').value = "";
-      document.getElementById('date').valueAsDate = new Date();
-      document.getElementById('masterNetProfit').value = "";
-      calculateLiveTotal();
-      
-      document.getElementById('formMainTitle').innerText = dict[ironPeakLang].inputTitle;
-      document.getElementById('formSubTitle').innerText = dict[ironPeakLang].inputDesc;
-      document.getElementById('formMainTitle').style.color = 'var(--text-main)';
-      const btn = document.getElementById('saveDataBtn');
-      btn.innerHTML = `<i class="fa-solid fa-check-double"></i> <span>${dict[ironPeakLang].saveBtn}</span>`;
-      btn.style.background = 'linear-gradient(135deg, var(--gold-premium), #b8860b)';
-      document.getElementById('cancelEditBtn').style.display = 'none';
-    }
-
-    function deleteEntry(id) {
-      if(confirm(dict[ironPeakLang].confirmDel)) {
-        ironPeakData = ironPeakData.filter(d => d.id !== id);
-        localStorage.setItem('ironPeakData', JSON.stringify(ironPeakData));
-        showToast(dict[ironPeakLang].succDel, 'success');
-        applyFilter(); 
+    window.deleteClient = async (id) => {
+      if(confirm('تأكيد حذف العميل؟ (سيبقى في الـ Auth ولكن سيحذف من القاعدة)')) {
+        await deleteDoc(doc(db, "users", id));
+        showToast('تم الحذف');
+        fetchAllClients();
       }
-    }
+    };
 
-    /* --- Market TradingView Multi-Asset Logic --- */
-    function loadMarket(symbol, btnElement) {
-      currentMarketSymbol = symbol;
-      if(btnElement) {
-        document.querySelectorAll('.market-tab').forEach(el => el.classList.remove('active'));
-        btnElement.classList.add('active');
-      }
-
-      const container = document.getElementById('tv_container');
-      container.innerHTML = ''; 
-
-      const themeCode = currentTheme === 'dark' ? 'dark' : 'light';
-      const bgColor = currentTheme === 'dark' ? '#060a0f' : '#f1f5f9';
-      const gridColor = currentTheme === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
-
-      const widgetConfig = {
-        "lineWidth": 2, "lineType": 0, "chartType": "area",
-        "fontColor": "#94A3B8", "gridLineColor": gridColor,
-        "volumeUpColor": "rgba(212, 175, 55, 0.4)", "volumeDownColor": "rgba(239, 68, 68, 0.4)",
-        "backgroundColor": bgColor,
-        "upColor": "#D4AF37", "downColor": "#ef4444",
-        "borderUpColor": "#D4AF37", "borderDownColor": "#ef4444",
-        "colorTheme": themeCode, "isTransparent": true,
-        "locale": ironPeakLang === 'ar' ? "ar_AE" : "en",
-        "symbols": [[symbol]],
-        "dateRanges": ["1d|1", "1m|30", "3m|60", "12m|1D", "all|1M"],
-        "autosize": true, "width": "100%", "height": "100%"
-      };
-
-      const script = document.createElement('script');
-      script.id = 'tv_script';
-      script.type = 'text/javascript';
-      script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js';
-      script.async = true;
-      script.innerHTML = JSON.stringify(widgetConfig);
-
-      const wrapper = document.createElement('div');
-      wrapper.className = "tradingview-widget-container";
-      wrapper.style.height = "100%"; wrapper.style.width = "100%";
-      const inner = document.createElement('div');
-      inner.className = "tradingview-widget-container__widget";
-      inner.style.height = "100%"; inner.style.width = "100%";
-      
-      wrapper.appendChild(inner);
-      wrapper.appendChild(script);
-      container.appendChild(wrapper);
-    }
-
-    /* --- Analytics Logic --- */
-    function updateAnalytics() {
-      const grid = document.getElementById('analyticsCardsGrid');
-      let totalNet = 0;
-      const daysCount = new Set(ironPeakData.map(d => d.date)).size;
-      const partnerTotals = {};
-      const monthlyData = {};
-      const dailyData = {};
-
-      Object.keys(ironPeakPartners).forEach(k => partnerTotals[k] = 0);
-
-      ironPeakData.forEach(item => {
-        totalNet += item.netProfit;
-        Object.keys(ironPeakPartners).forEach(k => {
-          if(item.profits[k]) partnerTotals[k] += item.profits[k];
-        });
-
-        const mKey = ironPeakLang === 'ar' ? item.monthAr : item.monthEn;
-        if (!monthlyData[mKey]) {
-          monthlyData[mKey] = { sort: item.date.substring(0,7) };
-          Object.keys(ironPeakPartners).forEach(k => monthlyData[mKey][k] = 0);
-        }
-        Object.keys(ironPeakPartners).forEach(k => {
-          if(item.profits[k]) monthlyData[mKey][k] += item.profits[k];
-        });
-
-        if (!dailyData[item.date]) dailyData[item.date] = 0;
-        dailyData[item.date] += item.netProfit;
-      });
-
-      // Calculate Current Capital
-      let activeCapital = 0;
-      ironPeakCapital.forEach(cap => {
-         activeCapital += (cap.type === 'increase' ? cap.amount : -cap.amount);
-      });
-
-      // Render Dashboard Cards
-      let cardsHtml = `
-        <div class="stat-card premium-card" style="border-bottom: 4px solid var(--info);">
-          <i class="fa-solid fa-building-columns stat-icon" style="color: var(--info);"></i>
-          <div class="stat-title">${dict[ironPeakLang].activeCapital}</div>
-          <div class="stat-value">${activeCapital.toLocaleString()} <span class="stat-currency">${dict[ironPeakLang].currency}</span></div>
-        </div>
-        <div class="stat-card premium-card">
-          <i class="fa-solid fa-vault stat-icon" style="background: linear-gradient(135deg, var(--primary-teal), var(--text-main)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
-          <div class="stat-title">${dict[ironPeakLang].netProfit}</div>
-          <div class="stat-value">${totalNet.toLocaleString()} <span class="stat-currency">${dict[ironPeakLang].currency}</span></div>
-        </div>
+    /* --- Platform Settings (Admin) --- */
+    window.addVideoRow = (title='', code='') => {
+      const c = document.getElementById('videosInputContainer');
+      const div = document.createElement('div');
+      div.className = 'form-group vid-row';
+      div.style.display = 'flex'; div.style.gap = '10px'; div.style.marginBottom = '10px';
+      div.innerHTML = `
+        <input type="text" class="form-control vid-title" placeholder="عنوان الفيديو" value="${title}" style="flex:1">
+        <input type="text" class="form-control vid-code" placeholder="كود التضمين iframe" value="${code}" style="flex:2">
+        <button type="button" class="btn-action" style="color:var(--danger); border-color:var(--danger)" onclick="this.parentElement.remove()"><i class="fa-solid fa-xmark"></i></button>
       `;
-      Object.keys(ironPeakPartners).forEach(k => {
-        const p = ironPeakPartners[k];
-        const name = ironPeakLang === 'ar' ? p.nameAr : p.nameEn;
-        cardsHtml += `
-          <div class="stat-card premium-card">
-            <i class="fa-solid fa-user-tie stat-icon" style="background: linear-gradient(135deg, ${p.color}, var(--text-main)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
-            <div class="stat-title">${dict[ironPeakLang].profitShare} ${name}</div>
-            <div class="stat-value" style="color:${p.color}">${partnerTotals[k].toLocaleString()} <span class="stat-currency">${dict[ironPeakLang].currency}</span></div>
-          </div>
-        `;
+      c.appendChild(div);
+    };
+
+    const populateSettingsForm = () => {
+      document.getElementById('setTelegram').value = platformSettings.telegramLink || '';
+      document.getElementById('setEmail').value = platformSettings.platformEmail || '';
+      document.getElementById('videosInputContainer').innerHTML = '';
+      if(platformSettings.youtubeVideos) {
+        platformSettings.youtubeVideos.forEach(v => window.addVideoRow(v.title, v.embedCode));
+      }
+    };
+
+    document.getElementById('platformSettingsForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const vids = [];
+      document.querySelectorAll('.vid-row').forEach((row, i) => {
+        vids.push({ id: `vid_${i}`, title: row.querySelector('.vid-title').value, embedCode: row.querySelector('.vid-code').value });
       });
-      grid.innerHTML = cardsHtml;
+      const data = {
+        telegramLink: document.getElementById('setTelegram').value,
+        platformEmail: document.getElementById('setEmail').value,
+        youtubeVideos: vids
+      };
+      await setDoc(doc(db, "settings", "platform_settings"), data);
+      showToast('تم حفظ الإعدادات');
+      platformSettings = data;
+    });
 
-      renderCharts(monthlyData, dailyData);
-    }
+    /* --- Client Utilities --- */
+    window.openTelegram = () => {
+      if(platformSettings.telegramLink) window.open(platformSettings.telegramLink, '_blank');
+      else showToast('الرابط غير متوفر حالياً', 'error');
+    };
 
-    function renderCharts(monthlyData, dailyData) {
-      Chart.defaults.color = currentTheme === 'dark' ? '#94A3B8' : '#64748b';
+    const setupClientVideos = () => {
+      const g = document.getElementById('clientVideosGrid');
+      g.innerHTML = '';
+      if(platformSettings.youtubeVideos && currentUserDoc.type === 'gold') {
+        platformSettings.youtubeVideos.forEach(v => {
+          g.innerHTML += `<div class="premium-card" style="overflow:hidden; border-radius:16px;">
+            <div style="position:relative; padding-bottom:56.25%; height:0;">${v.embedCode.replace('<iframe', '<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;"')}</div>
+            <div style="padding:15px; font-weight:800; text-align:center;">${v.title}</div>
+          </div>`;
+        });
+      }
+    };
+
+    /* --- Profits Data Fetching & Realtime --- */
+    const processDataAndRender = (docs) => {
+      allProfits = docs.map(d => ({id: d.id, ...d.data()})).sort((a,b) => new Date(a.date) - new Date(b.date));
+      renderDashboard();
+      renderHistoryTable();
+    };
+
+    const listenToAllProfits = () => {
+      const q = query(collection(db, "profits"), orderBy("date", "asc"));
+      onSnapshot(q, (snap) => processDataAndRender(snap.docs));
+    };
+
+    const listenToMyProfits = () => {
+      const q = query(collection(db, "profits"), where("clientId", "==", currentUserDoc.uid));
+      onSnapshot(q, (snap) => processDataAndRender(snap.docs));
+    };
+
+    /* --- Profits Entry (Admin) --- */
+    document.getElementById('entryForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btnSaveProfit');
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+      const data = {
+        clientId: document.getElementById('entryClient').value,
+        date: document.getElementById('entryDate').value,
+        amount: parseFloat(document.getElementById('entryAmount').value),
+        description: document.getElementById('entryNote').value || '',
+        createdAt: serverTimestamp()
+      };
+      
+      try {
+        if(editingProfitId) {
+          await setDoc(doc(db, "profits", editingProfitId), data, {merge:true});
+          showToast('تم التعديل');
+          window.cancelEditProfit();
+        } else {
+          await addDoc(collection(db, "profits"), data);
+          showToast('تمت الإضافة');
+          e.target.reset();
+        }
+      } catch (err) { showToast('خطأ: ' + err.message, 'error'); }
+      btn.innerHTML = 'اعتماد وحفظ البيانات';
+    });
+
+    window.editProfit = (id) => {
+      const p = allProfits.find(x => x.id === id);
+      if(p) {
+        editingProfitId = p.id;
+        document.getElementById('entryClient').value = p.clientId;
+        document.getElementById('entryDate').value = p.date;
+        document.getElementById('entryAmount').value = p.amount;
+        document.getElementById('entryNote').value = p.description;
+        document.getElementById('btnSaveProfit').innerHTML = '<i class="fa-solid fa-pen"></i> تحديث';
+        document.getElementById('btnCancelEdit').style.display = 'flex';
+        window.switchTab('input');
+      }
+    };
+    window.cancelEditProfit = () => {
+      editingProfitId = null;
+      document.getElementById('entryForm').reset();
+      document.getElementById('btnSaveProfit').innerHTML = 'اعتماد وحفظ البيانات';
+      document.getElementById('btnCancelEdit').style.display = 'none';
+    };
+    window.deleteProfit = async (id) => {
+      if(confirm('تأكيد حذف الإدخال؟')) await deleteDoc(doc(db, "profits", id));
+    };
+
+    /* --- UI Renderers --- */
+    const renderDashboard = () => {
+      let total = 0; const daysSet = new Set();
+      const monthly = {}; const daily = {};
+      
+      allProfits.forEach(p => {
+        total += p.amount;
+        daysSet.add(p.date);
+        
+        const mKey = p.date.substring(0,7);
+        if(!monthly[mKey]) monthly[mKey] = 0;
+        monthly[mKey] += p.amount;
+        
+        if(!daily[p.date]) daily[p.date] = 0;
+        daily[p.date] += p.amount;
+      });
+      
+      const avg = daysSet.size > 0 ? (total / daysSet.size).toFixed(2) : 0;
+      
+      document.getElementById('analyticsCardsGrid').innerHTML = `
+        <div class="stat-card premium-card"><i class="fa-solid fa-vault stat-icon"></i><div class="stat-title">إجمالي الأرباح</div><div class="stat-value">${total.toLocaleString()} <span style="font-size:1rem">$</span></div></div>
+        <div class="stat-card premium-card"><i class="fa-solid fa-calendar-check stat-icon"></i><div class="stat-title">الأيام النشطة</div><div class="stat-value">${daysSet.size} <span style="font-size:1rem">يوم</span></div></div>
+        <div class="stat-card premium-card"><i class="fa-solid fa-chart-line stat-icon"></i><div class="stat-title">متوسط الربح اليومي</div><div class="stat-value">${avg} <span style="font-size:1rem">$</span></div></div>
+      `;
+      renderChartsData(monthly, daily);
+    };
+
+    const renderChartsData = (monthly, daily) => {
+      Chart.defaults.color = document.documentElement.getAttribute('data-theme') === 'dark' ? '#94A3B8' : '#64748b';
       Chart.defaults.font.family = "'Tajawal', 'Almarai', sans-serif";
-      const gridColor = currentTheme === 'dark' ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)';
-      const tooltipBg = currentTheme === 'dark' ? 'rgba(13, 22, 33, 0.9)' : 'rgba(255, 255, 255, 0.95)';
-      const tooltipBorder = currentTheme === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
-      const tooltipTitle = currentTheme === 'dark' ? '#D4AF37' : '#0f172a';
-      const tooltipText = currentTheme === 'dark' ? '#fff' : '#0f172a';
+      const mLabels = Object.keys(monthly).sort();
+      const mData = mLabels.map(k => monthly[k]);
       
-      const monthLabels = Object.keys(monthlyData).sort((a,b) => monthlyData[a].sort.localeCompare(monthlyData[b].sort));
-      
-      const datasets = Object.keys(ironPeakPartners).map(k => {
-        const p = ironPeakPartners[k];
-        return {
-          label: ironPeakLang === 'ar' ? p.nameAr : p.nameEn,
-          data: monthLabels.map(m => monthlyData[m][k]),
-          backgroundColor: p.color,
-          borderRadius: 6, borderWidth: 0
-        };
+      const dLabels = Object.keys(daily).sort();
+      const dData = []; const cData = []; let sum=0;
+      dLabels.forEach(d => { sum += daily[d]; dData.push(daily[d]); cData.push(sum); });
+
+      if(chartMonthlyInstance) chartMonthlyInstance.destroy();
+      chartMonthlyInstance = new Chart(document.getElementById('monthlyChart').getContext('2d'), {
+        type: 'bar', data: { labels: mLabels, datasets: [{ label: 'الأرباح', data: mData, backgroundColor: '#D4AF37', borderRadius:6 }] },
+        options: { responsive:true, maintainAspectRatio:false }
       });
 
-      const ctx1 = document.getElementById('monthlyChart').getContext('2d');
-      if (monthlyChartInstance) monthlyChartInstance.destroy();
-      monthlyChartInstance = new Chart(ctx1, {
-        type: 'bar',
-        data: { labels: monthLabels, datasets: datasets },
-        options: { 
-          responsive: true, maintainAspectRatio: false, 
-          plugins: { 
-            legend: { position: 'top', labels: { usePointStyle: true, boxWidth: 10, padding: 20 } },
-            tooltip: { backgroundColor: tooltipBg, titleColor: tooltipTitle, bodyColor: tooltipText, padding: 15, borderColor: tooltipBorder, borderWidth: 1, cornerRadius: 8 }
-          },
-          scales: { 
-            x: { stacked: true, grid: { display: false } }, 
-            y: { stacked: true, border: {display: false}, grid: { color: gridColor } } 
-          }
-        }
-      });
-
-      const dayLabels = Object.keys(dailyData).sort();
-      const dayValues = []; const cumulativeValues = []; let tempSum = 0;
-      dayLabels.forEach(day => {
-        dayValues.push(dailyData[day]);
-        tempSum += dailyData[day];
-        cumulativeValues.push(tempSum);
-      });
-
-      const ctx2 = document.getElementById('dailyCumulativeChart').getContext('2d');
-      if (dailyChartInstance) dailyChartInstance.destroy();
-      
-      let gradArea = ctx2.createLinearGradient(0, 0, 0, 400);
-      gradArea.addColorStop(0, 'rgba(212, 175, 55, 0.3)');
-      gradArea.addColorStop(1, 'rgba(212, 175, 55, 0.0)');
-
-      dailyChartInstance = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-          labels: dayLabels,
+      if(chartDailyInstance) chartDailyInstance.destroy();
+      chartDailyInstance = new Chart(document.getElementById('dailyChart').getContext('2d'), {
+        type: 'bar', data: {
+          labels: dLabels,
           datasets: [
-            { type: 'line', label: 'Cumulative Net', data: cumulativeValues, borderColor: '#D4AF37', backgroundColor: gradArea, fill: true, tension: 0.4, borderWidth: 3, pointRadius: 0, hitRadius: 10, yAxisID: 'y1' },
-            { type: 'bar', label: 'Daily Net', data: dayValues, backgroundColor: 'rgba(0, 166, 147, 0.8)', borderRadius: 4, yAxisID: 'y' }
+            { type: 'line', label: 'تراكمي', data: cData, borderColor: '#D4AF37', tension:0.4, borderWidth:3 },
+            { type: 'bar', label: 'يومي', data: dData, backgroundColor: '#00A693', borderRadius:4 }
           ]
-        },
-        options: {
-          responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
-          plugins: { legend: { display:false }, tooltip: { backgroundColor: tooltipBg, titleColor: tooltipTitle, bodyColor: tooltipText, padding: 15, borderColor: tooltipBorder, borderWidth: 1, cornerRadius: 8 } },
-          scales: {
-            x: { grid: { display: false } },
-            y: { type: 'linear', display: true, position: ironPeakLang==='ar'?'left':'right', border: {display: false}, grid: { color: gridColor } },
-            y1: { type: 'linear', display: true, position: ironPeakLang==='ar'?'right':'left', border: {display: false}, grid: { drawOnChartArea: false } }
-          }
-        }
+        }, options: { responsive:true, maintainAspectRatio:false }
       });
-    }
+    };
 
-    /* --- Filtering & Table Logic --- */
-    function applyFilter() {
-      const fFrom = document.getElementById('filterFrom').value;
-      const fTo = document.getElementById('filterTo').value;
-      
-      filteredData = ironPeakData.filter(item => {
-        if (fFrom && item.date < fFrom) return false;
-        if (fTo && item.date > fTo) return false;
-        return true;
-      });
-      updateTable();
-    }
-
-    function resetFilter() {
-      document.getElementById('filterFrom').value = '';
-      document.getElementById('filterTo').value = '';
-      filteredData = [...ironPeakData];
-      updateTable();
-    }
-
-    function updateTable() {
-      const tbody = document.getElementById('tableBody');
+    const renderHistoryTable = () => {
+      const tbody = document.getElementById('historyBody');
       tbody.innerHTML = '';
-      
-      if(filteredData.length === 0) {
-        const cols = Object.keys(ironPeakPartners).length * 2 + (currentUser.role === 'admin' ? 4 : 3);
-        tbody.innerHTML = `<tr><td colspan="${cols}" style="padding:40px; color:var(--text-muted); text-align:center;">${dict[ironPeakLang].emptyData}</td></tr>`;
+      if(allProfits.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">لا توجد بيانات</td></tr>`;
         return;
       }
-
-      const sortedData = [...filteredData].sort((a, b) => b.timestamp - a.timestamp);
-      const pKeys = Object.keys(ironPeakPartners);
-      const isAdmin = currentUser.role === 'admin';
-
-      sortedData.forEach((item, index) => {
-        const tr = document.createElement('tr');
-        tr.style.animation = `slideUp 0.4s ease forwards ${(index * 0.03)}s`;
-        tr.style.opacity = '0';
+      
+      const rev = [...allProfits].reverse();
+      rev.forEach(p => {
+        let clientName = '';
+        if(currentUserDoc.role === 'admin') {
+          const c = allClients.find(x => x.id === p.clientId);
+          clientName = c ? c.displayName : 'غير معروف';
+        }
         
-        let html = `<td data-label="${dict[ironPeakLang].thDate}">${item.date}</td>
-                    <td data-label="${dict[ironPeakLang].thMonth}" style="color:var(--text-muted); font-size:0.95rem;">${ironPeakLang === 'ar' ? item.monthAr : item.monthEn}</td>`;
-        
-        pKeys.forEach(k => {
-          const val = item.profits[k] || 0;
-          const perc = item.netProfit > 0 ? ((val / item.netProfit) * 100).toFixed(1) : 0;
-          const color = ironPeakPartners[k].color;
-          const name = ironPeakLang === 'ar' ? ironPeakPartners[k].nameAr : ironPeakPartners[k].nameEn;
-          html += `
-            <td data-label="${name}">${val.toLocaleString()}</td>
-            <td data-label="%"><span class="badge" style="background:rgba(255,255,255,0.05); color:${color}; border:1px solid ${color}40">${perc}%</span></td>
-          `;
+        let html = `<tr>
+          <td>${p.date}</td>
+          ${currentUserDoc.role === 'admin' ? `<td class="col-client">${clientName}</td>` : ''}
+          <td style="color:var(--gold-premium); font-weight:bold;">${p.amount.toLocaleString()}</td>
+          <td>${p.description || '-'}</td>
+          ${currentUserDoc.role === 'admin' ? `<td class="col-action">
+            <button class="btn-icon-small edit" onclick="window.editProfit('${p.id}')"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn-icon-small delete" onclick="window.deleteProfit('${p.id}')"><i class="fa-solid fa-trash"></i></button>
+          </td>` : ''}
+        </tr>`;
+        tbody.innerHTML += html;
+      });
+    };
+
+    /* --- TradingView --- */
+    window.loadMarket = (symbol, btn) => {
+      if(btn) { document.querySelectorAll('.market-tab').forEach(e => e.classList.remove('active')); btn.classList.add('active'); }
+      const c = document.getElementById('tv_container'); c.innerHTML = '';
+      const s = document.createElement('script');
+      s.id = 'tv_script'; s.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js'; s.async = true;
+      s.innerHTML = JSON.stringify({
+        "symbols": [[symbol]], "chartType": "area", "lineWidth": 2, "lineType": 0, "dateRanges": ["1d|1", "1m|30", "3m|60", "12m|1D"],
+        "colorTheme": document.documentElement.getAttribute('data-theme'), "autosize": true, "isTransparent": true
+      });
+      c.appendChild(s);
+    };
+
+    /* --- Export Excel --- */
+    window.exportExcel = () => {
+      if(allProfits.length===0){ showToast('لا يوجد بيانات للتصدير','error'); return;}
+      const data = allProfits.map(p => {
+        let r = { "التاريخ": p.date, "المبلغ": p.amount, "ملاحظة": p.description };
+        if(currentUserDoc.role === 'admin') {
+          const c = allClients.find(x => x.id === p.clientId);
+          r["العميل"] = c ? c.displayName : '';
+        }
+        return r;
+      });
+      const ws = XLSX.utils.json_to_sheet(data);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Profits");
+      XLSX.writeFile(wb, `GoldenPeak_Report_${new Date().toISOString().slice(0,10)}.xlsx`);
+    };
+
+    /* --- Hidden Init Admin --- */
+    window.initAdminHidden = async () => {
+      const email = prompt("لإنشاء حساب الإدارة، أدخل بريد الأدمن:", "admin@goldenpeak.com");
+      if(!email) return;
+      const pass = prompt("أدخل كلمة المرور:", "admin2026");
+      if(!pass) return;
+      try {
+        const u = await createUserWithEmailAndPassword(auth, email, pass);
+        await setDoc(doc(db, "users", u.user.uid), {
+          email, displayName: "مدير النظام", role: "admin", type: "gold", createdAt: serverTimestamp()
         });
-        
-        html += `<td data-label="${dict[ironPeakLang].thNet}" class="net-profit-cell">${item.netProfit.toLocaleString()}</td>`;
-        
-        if(isAdmin) {
-          html += `
-            <td data-label="${dict[ironPeakLang].thActions}">
-              <div class="row-actions">
-                <button class="btn-icon-small edit" onclick="editEntry(${item.id})" title="تعديل"><i class="fa-solid fa-pen"></i></button>
-                <button class="btn-icon-small delete" onclick="deleteEntry(${item.id})" title="حذف"><i class="fa-solid fa-trash-can"></i></button>
-              </div>
-            </td>
-          `;
-        }
-        
-        tr.innerHTML = html;
-        tbody.appendChild(tr);
-      });
-    }
-
-    /* --- NEW: Capital Management Logic --- */
-    document.getElementById('capitalForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const amount = parseFloat(document.getElementById('cap_amount').value);
-      if(!amount || amount <= 0) return;
-
-      const newCap = {
-        id: Date.now(),
-        date: document.getElementById('cap_date').value,
-        amount: amount,
-        type: document.getElementById('cap_type').value,
-        note: document.getElementById('cap_note').value.trim()
-      };
-
-      ironPeakCapital.push(newCap);
-      ironPeakCapital.sort((a,b) => new Date(b.date) - new Date(a.date)); // Sort latest first
-      localStorage.setItem('ironPeakCapital', JSON.stringify(ironPeakCapital));
-      
-      showToast(dict[ironPeakLang].succCap);
-      this.reset();
-      document.getElementById('cap_date').valueAsDate = new Date();
-      renderAdminCapital();
-      if(monthlyChartInstance) updateAnalytics(); // Update active capital card
-    });
-
-    function renderAdminCapital() {
-      const list = document.getElementById('capitalHistoryList');
-      list.innerHTML = '';
-      if(ironPeakCapital.length === 0) return;
-
-      ironPeakCapital.forEach(cap => {
-        const isInc = cap.type === 'increase';
-        const icon = isInc ? '<i class="fa-solid fa-arrow-trend-up"></i>' : '<i class="fa-solid fa-arrow-trend-down"></i>';
-        const colorClass = isInc ? 'up' : 'down';
-        const typeText = isInc ? dict[ironPeakLang].capIncrease : dict[ironPeakLang].capDecrease;
-
-        list.innerHTML += `
-          <div class="capital-item ${cap.type}">
-             <div>
-                <div style="font-weight:700; color:var(--text-main); margin-bottom: 2px;">${icon} ${typeText}</div>
-                <div class="capital-date">${cap.date} ${cap.note ? ' - ' + cap.note : ''}</div>
-             </div>
-             <div class="capital-amount ${colorClass}">${isInc ? '+' : '-'}${cap.amount.toLocaleString()}</div>
-          </div>
-        `;
-      });
-    }
-
-    /* --- NEW: Partner Percentages Logic --- */
-    function renderAdminPercentages() {
-      const list = document.getElementById('adminPercentagesList');
-      list.innerHTML = '';
-      
-      Object.values(ironPeakPartners).forEach(p => {
-        list.innerHTML += `
-          <div class="user-card" style="padding: 15px;">
-            <div class="user-info">
-              <div class="color-dot" style="background-color: ${p.color};"></div>
-              <div style="font-weight:800; font-size:1.1rem;">${ironPeakLang === 'ar' ? p.nameAr : p.nameEn}</div>
-            </div>
-            <div style="display:flex; align-items:center; gap:10px;">
-               <input type="number" id="perc_admin_${p.id}" class="form-control perc-admin-input" step="0.001" value="${p.percentage || 0}" style="width: 100px; padding: 10px; text-align:center; font-weight:bold;">
-               <span style="font-weight:bold;">%</span>
-               <button type="button" class="btn-icon-small delete" onclick="adminDeletePartner('${p.id}')" title="حذف الشريك"><i class="fa-solid fa-trash-can"></i></button>
-            </div>
-          </div>
-        `;
-      });
-
-      document.querySelectorAll('.perc-admin-input').forEach(inp => {
-        inp.addEventListener('input', validatePercentagesSum);
-      });
-      validatePercentagesSum();
-    }
-
-    function validatePercentagesSum() {
-      let sum = 0;
-      document.querySelectorAll('.perc-admin-input').forEach(inp => {
-        sum += parseFloat(inp.value) || 0;
-      });
-      
-      const display = document.getElementById('percTotalDisplay');
-      const btn = document.getElementById('savePercBtn');
-      
-      // Allow minor floating point diffs (e.g., 99.999 to 100.001)
-      const isComplete = Math.abs(sum - 100) < 0.01;
-      
-      display.innerText = `${sum.toFixed(3).replace(/\.000$/, '')}%`;
-      display.style.color = isComplete ? 'var(--success)' : 'var(--danger)';
-      btn.disabled = !isComplete;
-      btn.style.opacity = isComplete ? '1' : '0.5';
-    }
-
-    document.getElementById('percentagesForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      document.querySelectorAll('.perc-admin-input').forEach(inp => {
-        const id = inp.id.replace('perc_admin_', '');
-        if(ironPeakPartners[id]) {
-          ironPeakPartners[id].percentage = parseFloat(inp.value) || 0;
-        }
-      });
-      localStorage.setItem('ironPeakPartners', JSON.stringify(ironPeakPartners));
-      showToast(dict[ironPeakLang].succPerc, 'success');
-      renderDynamicUI(); // Update UI everywhere
-    });
-
-    /* Add Partner */
-    document.getElementById('addPartnerForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const id = document.getElementById('p_username').value.trim().toLowerCase();
-      if(id === 'admin' || ironPeakPartners[id]) {
-        showToast('اسم المستخدم محجوز أو موجود مسبقاً', 'error'); return;
+        showToast('تم إنشاء حساب الإدارة بنجاح، سيتم تسجيل الدخول');
+      } catch(e) {
+        if(e.code === 'auth/email-already-in-use') showToast('حساب الأدمن موجود مسبقاً', 'error');
+        else showToast(e.message, 'error');
       }
-      
-      ironPeakPartners[id] = {
-        id: id,
-        pass: document.getElementById('p_password').value,
-        role: 'partner',
-        nameAr: document.getElementById('p_nameAr').value,
-        nameEn: document.getElementById('p_nameEn').value,
-        color: document.getElementById('p_color').value,
-        percentage: 0 // Default 0 until admin distributes manually
-      };
-      
-      localStorage.setItem('ironPeakPartners', JSON.stringify(ironPeakPartners));
-      showToast(dict[ironPeakLang].succAdd);
-      this.reset();
-      renderDynamicUI();
-      if (monthlyChartInstance) updateAnalytics(); 
-    });
-
-    function adminDeletePartner(partnerId) {
-      const pName = ironPeakLang === 'ar' ? ironPeakPartners[partnerId].nameAr : ironPeakPartners[partnerId].nameEn;
-      const confirmDelete = confirm(`تحذير: هل أنت متأكد من حذف الشريك (${pName}) نهائياً من النظام؟`);
-      
-      if(confirmDelete) {
-        const deleteHistory = confirm(`هل ترغب أيضاً بمسح كافة البيانات والأرباح السابقة المرتبطة بالشريك (${pName})؟\n\n- اختر (OK): لمسح أرباحه وإعادة الحساب.\n- اختر (Cancel): لحذف حسابه فقط والاحتفاظ بالأرباح القديمة.`);
-        
-        if (deleteHistory) {
-          ironPeakData.forEach(item => {
-            if(item.profits && item.profits[partnerId] !== undefined) {
-               item.netProfit -= item.profits[partnerId];
-               delete item.profits[partnerId];
-            }
-          });
-          localStorage.setItem('ironPeakData', JSON.stringify(ironPeakData));
-          filteredData = [...ironPeakData];
-        }
-
-        delete ironPeakPartners[partnerId];
-        localStorage.setItem('ironPeakPartners', JSON.stringify(ironPeakPartners));
-        
-        showToast("تم الحذف بنجاح", "success");
-        renderDynamicUI(); 
-        if(monthlyChartInstance) updateAnalytics(); 
-        updateTable(); 
-      }
-    }
-
-    /* --- Export & Clear --- */
-    function exportToExcel() {
-      if(filteredData.length === 0) { showToast(dict[ironPeakLang].noExport, "error"); return; }
-      
-      const exportData = filteredData.map(item => {
-        const row = {
-          "Date / التاريخ": item.date,
-          "Month / الشهر": item.monthEn,
-          "Net Profit / الصافي الكلي": item.netProfit
-        };
-        Object.keys(ironPeakPartners).forEach(k => {
-          const name = ironPeakPartners[k].nameEn;
-          const val = item.profits[k] || 0;
-          const perc = item.netProfit > 0 ? ((val / item.netProfit) * 100).toFixed(1) : 0;
-          row[`${name} Profit`] = val;
-          row[`${name} %`] = perc + "%";
-        });
-        return row;
-      });
-
-      const worksheet = XLSX.utils.json_to_sheet(exportData);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "IronPeak_Report");
-      const dateStr = new Date().toISOString().slice(0,10);
-      XLSX.writeFile(workbook, `IronPeak_Capital_${dateStr}.xlsx`);
-    }
-
-    function clearData() {
-      if(confirm(dict[ironPeakLang].confirmClear)) {
-        localStorage.removeItem('ironPeakData');
-        ironPeakData = [];
-        filteredData = [];
-        updateTable();
-        updateAnalytics();
-        showToast("تم مسح السجلات بنجاح", "success");
-      }
-    }
+    };
   </script>
 </body>
 </html>
