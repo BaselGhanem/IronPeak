@@ -1,6 +1,6 @@
 /* --- نفس التنسيقات السابقة (محذوفة للاختصار) --- */
 /* سيتم تضمين جميع التنسيقات من الكود السابق */
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@400;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
 :root {
   --bg-base-dark: #060a0f; --bg-surface-dark: rgba(13, 22, 33, 0.6); --glass-border-dark: rgba(255, 255, 255, 0.08);
   --glass-highlight-dark: rgba(255, 255, 255, 0.1); --text-main-dark: #F8FAFC; --text-muted-dark: #94A3B8;
@@ -10,7 +10,8 @@
   --teal-glow-light: rgba(0, 166, 147, 0.15); --gold-glow-light: rgba(212, 175, 55, 0.15);
   --deep-teal: #002b24; --primary-teal: #00A693; --gold-premium: #D4AF37; --gold-light: #F9E596;
   --danger: #ef4444; --success: #10b981; --warning: #f59e0b; --info: #3b82f6;
-  --font-primary: 'Tajawal', 'Almarai', sans-serif; --font-heading: 'Almarai', sans-serif;
+--font-primary: 'Poppins', 'Almarai', sans-serif;
+  --font-heading: 'Poppins', 'Almarai', sans-serif;
   --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1); --transition-fast: 0.2s ease;
 }
 html[data-theme="dark"] {
